@@ -531,7 +531,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Name": "Washington", "Region": "Pacific NOrth" },
+      "properties": { "Name": "Washington", "Region": "Pacific North" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
