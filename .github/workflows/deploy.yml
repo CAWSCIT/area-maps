@@ -8,9 +8,9 @@ on:
       - '**/*.css'
       - '**/*.js'
       - '**/*.jsx'
-      - '**/*.pdf'
       - '**/*.png'
       - '**/*.html'
+      - '**/*.json'
 
 jobs:
   deploy:
