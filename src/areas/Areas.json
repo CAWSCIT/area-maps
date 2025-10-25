@@ -2166,7 +2166,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Name": "Louisiana", "Region": "South" },
+      "properties": { "Name": "Louisiana", "Region": "Atlantic South" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2203,7 +2203,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Name": "Mississippi", "Region": "South" },
+      "properties": { "Name": "Mississippi", "Region": "Atlantic South" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2317,7 +2317,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Name": "Florida", "Region": "South" },
+      "properties": { "Name": "Florida", "Region": "Atlantic South" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2371,7 +2371,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Name": "Arkansas", "Region": "South" },
+      "properties": { "Name": "Arkansas", "Region": "Atlantic South" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2615,7 +2615,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Name": "Alabama", "Region": "South" },
+      "properties": { "Name": "Alabama", "Region": "Atlantic South" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2658,7 +2658,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Name": "Georgia", "Region": "South" },
+      "properties": { "Name": "Georgia", "Region": "Atlantic South" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2756,7 +2756,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Name": "South Carolina", "Region": "South" },
+      "properties": { "Name": "South Carolina", "Region": "Atlantic South" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2954,7 +2954,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Name": "Tennessee", "Region": "South" },
+      "properties": { "Name": "Tennessee", "Region": "Atlantic South" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3202,7 +3202,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Name": "Virginia", "Region": "South" },
+      "properties": { "Name": "Virginia", "Region": "Atlantic South" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3357,7 +3357,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Name": "North Carolina", "Region": "South" },
+      "properties": { "Name": "North Carolina", "Region": "Atlantic South" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
