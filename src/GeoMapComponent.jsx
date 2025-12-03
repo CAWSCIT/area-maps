@@ -29,7 +29,18 @@ export default function GeoMapComponent({ initialData }) {
     fillOpacity: 0.6,
   };
 
-  const styleFeature = useCallback(() => baseStyle, []);
+  // const styleFeature = useCallback(() => baseStyle, []);
+  const styleFeature = useCallback((feature) => {
+    const wsc = feature?.properties?.WSCRecognized;
+
+    // Your rule: if it's NOT null, render differently
+    const isSpecial = wsc !== null;
+
+    return {
+      ...baseStyle,
+      fillColor: isSpecial ? '#cc4f4f' : '#4f83cc', // change these colors as you like
+    };
+  }, []);
 
   const highlightFeature = useCallback((e) => {
     const layer = e.target;
@@ -101,6 +112,7 @@ export default function GeoMapComponent({ initialData }) {
           <div style={{ minWidth: 180 }}>
             <strong>{selected.props.Name ?? 'Area'}</strong>
             <div>Region: {selected.props.Region ?? '—'}</div>
+            <div>WSC Recognized: {selected.props.WSCRecognized ?? 'Yes'}</div>
             {/* Add anything else you want from properties */}
           </div>
         </Popup>
