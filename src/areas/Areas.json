@@ -3885,7 +3885,7 @@
       "properties": {
         "Name": "Belgium",
         "Region": "Mainland Europe",
-        "WSCRecognized": false
+        "WSCRecognized": null
       },
       "geometry": {
         "type": "Polygon",

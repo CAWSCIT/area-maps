@@ -1,7 +1,7 @@
-// GeoMapComponent.jsx
 import { MapContainer, TileLayer, GeoJSON, Popup, useMap } from 'react-leaflet';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
+import LegendControl from './LegendControl';
 
 function FitToGeoJSON({ geoJsonRef }) {
   const map = useMap();
@@ -20,6 +20,22 @@ export default function GeoMapComponent({ initialData }) {
   const [geoJsonData] = useState(initialData);
   const [selected, setSelected] = useState(null); // { props, latlng }
   const geoJsonRef = useRef(null);
+
+  const legendItems = [
+    {
+      label: 'WSC Recognized',
+      color: '#4f83cc',
+    },
+    {
+      label: 'Not WSC Recognized',
+      color: '#cc4f4f',
+    },
+    {
+      label: 'Online Service Area (global)',
+      color: '#ffd166',
+    },
+  ];
+
 
   const baseStyle = {
     weight: 2,
@@ -117,6 +133,8 @@ export default function GeoMapComponent({ initialData }) {
           </div>
         </Popup>
       )}
+
+      <LegendControl items={legendItems} />
     </MapContainer>
   );
 }
