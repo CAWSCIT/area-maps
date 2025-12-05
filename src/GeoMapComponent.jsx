@@ -1,7 +1,27 @@
-import { MapContainer, TileLayer, GeoJSON, Popup, useMap, CircleMarker, Pane } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import { MapContainer, TileLayer, GeoJSON, Popup, useMap, Marker, Pane } from 'react-leaflet';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
+delete L.Icon.Default.prototype._getIconUrl;
+import MarkerClusterGroup from 'react-leaflet-cluster';
+
 import LegendControl from './LegendControl';
+import caLogoWhite from '/src/assets/ca-logo-white.svg';
+
+export const caMeetingIcon = L.divIcon({
+  className: 'ca-marker-icon',
+  html: `
+    <div class="ca-marker">
+      <div class="ca-marker-inner">
+        <img src="${caLogoWhite}" alt="C.A. Logo" />
+      </div>
+    </div>
+  `,
+  iconSize: [32, 42],   // overall size (circle + pointer)
+  iconAnchor: [16, 42], // bottom center = "tip" of pin
+  popupAnchor: [0, -36],
+});
+
 
 function FitToGeoJSON({ geoJsonRef }) {
   const map = useMap();
@@ -18,8 +38,8 @@ function FitToGeoJSON({ geoJsonRef }) {
 
 export default function GeoMapComponent({ initialData }) {
   const [geoJsonData] = useState(initialData);
-  const [selected, setSelected] = useState(null); // { props, latlng }
-  const [meetings, setMeetings] = useState([]);   // <--- new
+  const [selected, setSelected] = useState(null);
+  const [meetings, setMeetings] = useState([]);
   const [loadingMeetings, setLoadingMeetings] = useState(false);
   const [meetingsError, setMeetingsError] = useState(null);
 
@@ -28,11 +48,21 @@ export default function GeoMapComponent({ initialData }) {
     setMeetingsError(null);
 
     try {
-      const res = await fetch('https://caws-api.azurewebsites.net/api/v1/meetings-tsml');
+      const res = await fetch('https://caws-api.azurewebsites.net/api/v1/meetings-tsml?area=all');
       if (!res.ok) {
         throw new Error(`HTTP ${res.status}`);
       }
       const data = await res.json();
+
+      const dayNames = {
+        0: 'Sunday',
+        1: 'Monday',
+        2: 'Tuesday',
+        3: 'Wednesday',
+        4: 'Thursday',
+        5: 'Friday',
+        6: 'Saturday',
+      };
 
       const cleaned = data
         .filter(m => m.latitude && m.longitude)
@@ -41,9 +71,9 @@ export default function GeoMapComponent({ initialData }) {
           name: m.name || 'Meeting',
           latitude: Number(m.latitude),
           longitude: Number(m.longitude),
-          day: m.day,                // 1–7 numeric (if that's your convention)
-          time: m.time,              // "12:00"
-          endTime: m.end_time,       // "13:00"
+          day: dayNames[m.day] || null,
+          time: m.time,
+          endTime: m.end_time,
           area: m.area,
           region: m.region,
           address: m.formatted_address || m.address,
@@ -51,7 +81,6 @@ export default function GeoMapComponent({ initialData }) {
           attendanceOption: m.attendance_option, // "in_person", etc.
           notes: m.notes,
         }));
-        console.log(cleaned)
       setMeetings(cleaned);
     } catch (err) {
       console.error(err);
@@ -62,21 +91,6 @@ export default function GeoMapComponent({ initialData }) {
   }, []);
 
   const geoJsonRef = useRef(null);
-
-  const legendItems = [
-    {
-      label: 'WSC Recognized',
-      color: '#4f83cc',
-    },
-    {
-      label: 'Not WSC Recognized',
-      color: '#cc4f4f',
-    },
-    {
-      label: 'Online Service Area (global)',
-      color: '#ffd166',
-    },
-  ];
 
 
   const baseStyle = {
@@ -148,17 +162,7 @@ export default function GeoMapComponent({ initialData }) {
   return (
     <div style={{ position: 'relative', height: '100vh', width: '100%' }}>
       {/* Top-left controls */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 10,
-          right: 10,
-          zIndex: 1000,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 6,
-        }}
-      >
+      <div className="load-meetings-control">
         {!meetings.length && (
           <button
             onClick={handleLoadMeetings}
@@ -216,18 +220,47 @@ export default function GeoMapComponent({ initialData }) {
         )}
 
           <Pane name="meetings" style={{ zIndex: 600 }}>
+            <MarkerClusterGroup
+              chunkedLoading
+              zoomToBoundsOnClick={false}
+              spiderfyOnMaxZoom={true}
+              animate={false}
+              showCoverageOnHover={false}
+              onClick={(event) => {
+                const cluster = event.layer;
+                const map = cluster._map;
+
+                // Zoom in by 1 instead of zoomToBounds
+                map.setZoom(map.getZoom() + 3, {
+                  animate: false,
+                });
+
+                // Optionally: center the map on the cluster
+                map.panTo(cluster.getLatLng(), { animate: true });
+              }}
+              iconCreateFunction={(cluster) => {
+                const count = cluster.getChildCount();
+
+                return L.divIcon({
+                  className: 'ca-marker-icon ca-marker-icon--cluster',
+                  html: `
+                    <div class="ca-marker ca-marker-cluster">
+                      <div class="ca-marker-inner">${count}</div>
+                    </div>
+                  `,
+                  iconSize: [16, 21],
+                  iconAnchor: [16, 42],
+                  popupAnchor: [0, -36],
+                });
+              }}
+              >
             {meetings.map((m) => (
 
-              <CircleMarker
-                key={m.id}
-                center={[m.latitude, m.longitude]}
-                radius={3}
-                pathOptions={{
-                  color: '#ff5722',
-                  fillColor: '#ff5722',
-                  fillOpacity: 0.9,
-                }}
-              >
+                <Marker
+                  key={m.id}
+                  position={[m.latitude, m.longitude]}
+                  icon={caMeetingIcon}
+                >
                 <Popup>
                   <div>
                     <strong>{m.name}</strong>
@@ -259,10 +292,11 @@ export default function GeoMapComponent({ initialData }) {
                     {m.notes && <div>Notes: {m.notes}</div>}
                   </div>
                 </Popup>
-              </CircleMarker>
+              </Marker>
             ))}
+            </MarkerClusterGroup>
           </Pane>
-        <LegendControl items={legendItems} />
+        <LegendControl />
       </MapContainer>
     </div>
   );

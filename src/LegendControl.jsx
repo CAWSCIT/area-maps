@@ -3,8 +3,24 @@ import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
 import L from 'leaflet';
 
-export default function LegendControl({ items }) {
+export default function LegendControl() {
   const map = useMap();
+
+  const legendItems = [
+    {
+      label: 'WSC Recognized',
+      color: '#4f83cc',
+    },
+    {
+      label: 'Not WSC Recognized',
+      color: '#cc4f4f',
+    },
+    {
+      label: 'Online Service Area (global)',
+      color: '#ffd166',
+    },
+  ];
+
 
   useEffect(() => {
     const legend = L.control({ position: 'bottomright' });
@@ -21,7 +37,7 @@ export default function LegendControl({ items }) {
 
       div.innerHTML = `
         <div style="font-weight: bold; margin-bottom: 4px;">Legend</div>
-        ${items
+        ${legendItems
           .map(
             (item) => `
               <div style="display: flex; align-items: center; margin-bottom: 4px;">
@@ -47,7 +63,7 @@ export default function LegendControl({ items }) {
     return () => {
       legend.remove();
     };
-  }, [map, items]);
+  }, [map, legendItems]);
 
   return null;
 }
