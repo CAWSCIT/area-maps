@@ -6,35 +6,9 @@ delete L.Icon.Default.prototype._getIconUrl;
 import MarkerClusterGroup from 'react-leaflet-cluster';
 
 import LegendControl from './LegendControl';
+import { caMeetingIcon, clusterIcon } from './Icons';
 import caLogoWhite from '/src/assets/ca-logo-white.svg';
 
-export const caMeetingIcon = L.divIcon({
-  className: 'ca-marker-icon',
-  html: `
-    <div class="ca-marker">
-      <div class="ca-marker-inner">
-        <img src="${caLogoWhite}" alt="C.A. Logo" />
-      </div>
-    </div>
-  `,
-  iconSize: [32, 42],   // overall size (circle + pointer)
-  iconAnchor: [16, 42], // bottom center = "tip" of pin
-  popupAnchor: [0, -36],
-});
-
-
-function FitToGeoJSON({ geoJsonRef }) {
-  const map = useMap();
-  useEffect(() => {
-    const gj = geoJsonRef.current;
-    if (gj) {
-      const layer = gj; // GeoJSON layer
-      const bounds = layer.getBounds?.();
-      if (bounds && bounds.isValid()) map.fitBounds(bounds, { padding: [20, 20] });
-    }
-  }, [geoJsonRef, map]);
-  return null;
-}
 
 export default function GeoMapComponent({ initialData }) {
   const [geoJsonData] = useState(initialData);
@@ -160,37 +134,36 @@ export default function GeoMapComponent({ initialData }) {
   }, [highlightFeature, resetHighlight, zoomToFeature]);
 
   return (
-    <div style={{ position: 'relative', height: '100vh', width: '100%' }}>
-      {/* Top-left controls */}
-      <div className="load-meetings-control">
-        {!meetings.length && (
-          <button
-            onClick={handleLoadMeetings}
-            disabled={loadingMeetings}
-            style={{
-              padding: '6px 10px',
-              borderRadius: 4,
-              border: '1px solid #333',
-              background: loadingMeetings ? '#ddd' : '#fff',
-              cursor: loadingMeetings ? 'default' : 'pointer',
-              fontSize: 13,
-            }}
-          >
-            {loadingMeetings ? 'Loading meetings…' : 'Load all meetings'}
-          </button>
-        )}
+    <div>
 
-        {meetingsError && (
-          <span style={{ color: 'red', fontSize: 12 }}>
-            {meetingsError}
-          </span>
-        )}
+      <div className="flex h-24 items-center justify-between px-2.5 py-2.5 bg-[#00594f]">
+        {/* Logo */}
+        <div className="flex items-center gap-2 font-semibold text-lg text-white">
+          <img src={caLogoWhite} alt="C.A. Logo" className="h-24 w-auto" />
+          <span className="hidden sm:block">C.A. Area Maps</span>
+        </div>
+        {/* Top-left controls */}
+        <div className="">
+          {!meetings.length && (
+            <button
+              onClick={handleLoadMeetings}
+              disabled={loadingMeetings}
+              className="py-1.5 px-3 border cursor-pointer bg-white border-gray-800 rounded hover:bg-gray-200 disabled:opacity-50"
+            >
+              {loadingMeetings ? 'Loading meetings…' : 'Load all meetings'}
+            </button>
+          )}
+
+          {meetingsError && (
+            <span className="text-red-500 text-sm">
+              {meetingsError}
+            </span>
+          )}
+        </div>
       </div>
-      <MapContainer
-        zoom={5}
-        style={{ height: '100vh', width: '100%' }}
-      >
 
+      <MapContainer center={[0, 0]} zoom={2} className="h-[calc(100vh_-_6rem)] w-full">
+        {/* Attribution */}
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors"
@@ -202,102 +175,90 @@ export default function GeoMapComponent({ initialData }) {
           onEachFeature={onEachFeature}
         />
 
-        {/* Zoom into the loaded GeoJSON Areas */}
-        <FitToGeoJSON geoJsonRef={geoJsonRef} />
-
         {selected && (
           <Popup
             position={selected.latlng}
             eventHandlers={{ remove: () => setSelected(null) }}
           >
-            <div style={{ minWidth: 180 }}>
+            <div className="min-w-48">
               <strong>{selected.props.Name ?? 'Area'}</strong>
               <div>Region: {selected.props.Region ?? '—'}</div>
               <div>WSC Recognized: {selected.props.WSCRecognized ?? 'Yes'}</div>
-              {/* Add anything else you want from properties */}
             </div>
           </Popup>
         )}
 
-          <Pane name="meetings" style={{ zIndex: 600 }}>
-            <MarkerClusterGroup
-              chunkedLoading
-              zoomToBoundsOnClick={false}
-              spiderfyOnMaxZoom={true}
-              animate={false}
-              showCoverageOnHover={false}
-              onClick={(event) => {
-                const cluster = event.layer;
-                const map = cluster._map;
+        {/* Pane for displaying meetings over the Areas */}
+        <Pane name="meetings" style={{ zIndex: 600 }}>
+          <MarkerClusterGroup
+            chunkedLoading
+            zoomToBoundsOnClick={false}
+            spiderfyOnMaxZoom={true}
+            showCoverageOnHover={false}
+            maxClusterRadius={35}
+            onClick={(event) => {
+              const cluster = event.layer;
+              const map = cluster._map;
 
-                // Zoom in by 1 instead of zoomToBounds
-                map.setZoom(map.getZoom() + 3, {
-                  animate: false,
-                });
+              // Zoom in by 1 instead of zoomToBounds
+              map.setZoom(map.getZoom() + 3, {
+                animate: false,
+              });
 
-                // Optionally: center the map on the cluster
-                map.panTo(cluster.getLatLng(), { animate: true });
-              }}
-              iconCreateFunction={(cluster) => {
-                const count = cluster.getChildCount();
-
-                return L.divIcon({
-                  className: 'ca-marker-icon ca-marker-icon--cluster',
-                  html: `
-                    <div class="ca-marker ca-marker-cluster">
-                      <div class="ca-marker-inner">${count}</div>
+              // Optionally: center the map on the cluster
+              map.panTo(cluster.getLatLng(), { animate: false });
+            }}
+            iconCreateFunction={(cluster) => {
+              const count = cluster.getChildCount();
+              return clusterIcon(count);
+            }}
+          >
+          {meetings.map((m) => (
+            <Marker
+              key={m.id}
+              position={[m.latitude, m.longitude]}
+              icon={caMeetingIcon}
+            >
+              <Popup>
+                <div>
+                  <strong>{m.name}</strong>
+                  {m.area && <div>Area: {m.area}</div>}
+                  {m.address && <div>{m.address}</div>}
+                  {(m.day || m.time) && (
+                    <div>
+                      {m.day && <span>Day: {m.day}</span>} {/* or map 1–7 to names */}
+                      {m.time && (
+                        <>
+                          {' '}
+                          @ {m.time}
+                          {m.endTime && `–${m.endTime}`}
+                        </>
+                      )}
                     </div>
-                  `,
-                  iconSize: [16, 21],
-                  iconAnchor: [16, 42],
-                  popupAnchor: [0, -36],
-                });
-              }}
-              >
-            {meetings.map((m) => (
+                  )}
+                  {m.attendanceOption && (
+                    <div>Attendance: {m.attendanceOption.replace('_', ' ')}</div>
+                  )}
+                  {m.url && (
+                    <div>
+                      <a href={m.url} target="_blank" rel="noreferrer">
+                        Website
+                      </a>
+                    </div>
+                  )}
+                  {m.notes && <div>Notes: {m.notes}</div>}
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+          </MarkerClusterGroup>
+        </Pane>
 
-                <Marker
-                  key={m.id}
-                  position={[m.latitude, m.longitude]}
-                  icon={caMeetingIcon}
-                >
-                <Popup>
-                  <div>
-                    <strong>{m.name}</strong>
-                    {m.area && <div>Area: {m.area}</div>}
-                    {m.region && <div>Region: {m.region}</div>}
-                    {m.address && <div>{m.address}</div>}
-                    {(m.day || m.time) && (
-                      <div>
-                        {m.day && <span>Day: {m.day}</span>} {/* or map 1–7 to names */}
-                        {m.time && (
-                          <>
-                            {' '}
-                            @ {m.time}
-                            {m.endTime && `–${m.endTime}`}
-                          </>
-                        )}
-                      </div>
-                    )}
-                    {m.attendanceOption && (
-                      <div>Attendance: {m.attendanceOption.replace('_', ' ')}</div>
-                    )}
-                    {m.url && (
-                      <div>
-                        <a href={m.url} target="_blank" rel="noreferrer">
-                          Website
-                        </a>
-                      </div>
-                    )}
-                    {m.notes && <div>Notes: {m.notes}</div>}
-                  </div>
-                </Popup>
-              </Marker>
-            ))}
-            </MarkerClusterGroup>
-          </Pane>
+        {/* Legend */}
         <LegendControl />
       </MapContainer>
+
+    {/* End page container */}
     </div>
   );
 }

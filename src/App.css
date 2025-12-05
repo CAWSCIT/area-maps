@@ -1,19 +1,13 @@
 @import "tailwindcss";
 
 
-.load-meetings-control {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    gap: 6;
+.leaflet-interactive:focus {
+  outline: none;
 }
 
-.ca-marker-icon {}
-
-.ca-marker-icon--cluster {}
+.leaflet-popup-pane {
+  z-index: 10000 !important;
+}
 
 .ca-marker {
   position: relative;
@@ -47,6 +41,3 @@
   line-height: 1;
 }
 
-.leaflet-popup-pane {
-  z-index: 10000 !important;
-}
