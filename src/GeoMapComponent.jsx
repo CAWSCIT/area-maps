@@ -200,19 +200,25 @@ export default function GeoMapComponent({ initialData }) {
               const cluster = event.layer;
               const map = cluster._map;
 
-              // Zoom in by 1 instead of zoomToBounds
-              map.setZoom(map.getZoom() + 3, {
-                animate: false,
-              });
+              const currentZoom = map.getZoom();
+              const targetZoom = Math.min(currentZoom + 3, map.getMaxZoom());
 
-              // Optionally: center the map on the cluster
-              map.panTo(cluster.getLatLng(), { animate: false });
+              // one atomic view change
+              map.setView(cluster.getLatLng(), targetZoom, { animate: false });
+
+              // when the zoom/move finishes, force a recompute
+              map.once('moveend', () => {
+                if (clusterRef.current) {
+                  clusterRef.current.refreshClusters();
+                }
+              });
             }}
             iconCreateFunction={(cluster) => {
               const count = cluster.getChildCount();
               return clusterIcon(count);
             }}
           >
+
           {meetings.map((m) => (
             <Marker
               key={m.id}
@@ -251,6 +257,7 @@ export default function GeoMapComponent({ initialData }) {
               </Popup>
             </Marker>
           ))}
+
           </MarkerClusterGroup>
         </Pane>
 
