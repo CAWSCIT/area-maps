@@ -17,7 +17,7 @@ export default function LegendControl() {
     },
     {
       label: 'Online Service Area (global)',
-      color: '#ffd166',
+      color: 'rgba(0, 0, 0, 0)',
     },
   ];
 

@@ -1,6 +1,5 @@
-import 'leaflet/dist/leaflet.css';
-import { MapContainer, TileLayer, GeoJSON, Popup, useMap, Marker, Pane } from 'react-leaflet';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { MapContainer, TileLayer, GeoJSON, Popup, Marker, Pane } from 'react-leaflet';
+import { useCallback, useRef, useState } from 'react';
 import L from 'leaflet';
 delete L.Icon.Default.prototype._getIconUrl;
 import MarkerClusterGroup from 'react-leaflet-cluster';
@@ -16,6 +15,7 @@ export default function GeoMapComponent({ initialData }) {
   const [meetings, setMeetings] = useState([]);
   const [loadingMeetings, setLoadingMeetings] = useState(false);
   const [meetingsError, setMeetingsError] = useState(null);
+  const [highlightedRegion, setHighlightedRegion] = useState(null);
 
   const handleLoadMeetings = useCallback(async () => {
     setLoadingMeetings(true);
@@ -66,7 +66,6 @@ export default function GeoMapComponent({ initialData }) {
 
   const geoJsonRef = useRef(null);
 
-
   const baseStyle = {
     weight: 2,
     opacity: 1,
@@ -75,72 +74,128 @@ export default function GeoMapComponent({ initialData }) {
     fillOpacity: 0.6,
   };
 
-  // const styleFeature = useCallback(() => baseStyle, []);
   const styleFeature = useCallback((feature) => {
-    const wsc = feature?.properties?.WSCRecognized;
+    const props = feature?.properties ?? {};
+    const wsc = props.WSCRecognized;
+    const isInHighlightedRegion =
+      highlightedRegion && props.Region === highlightedRegion;
 
-    // Your rule: if it's NOT null, render differently
-    const isSpecial = wsc !== null;
-
-    return {
+    let style = {
       ...baseStyle,
-      fillColor: isSpecial ? '#cc4f4f' : '#4f83cc', // change these colors as you like
     };
-  }, []);
 
-  const highlightFeature = useCallback((e) => {
-    const layer = e.target;
-    layer.setStyle({
-      weight: 3,
-      color: '#222',
-      fillOpacity: 0.75,
-    });
-    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-      layer.bringToFront();
+    // non-null WSCRecognized = different fill color
+    if (wsc !== null && wsc !== undefined) {
+      style.fillColor = '#cc4f4f';
     }
-  }, []);
 
-  const resetHighlight = useCallback((e) => {
-    const gj = geoJsonRef.current;
-    if (gj && gj.resetStyle) gj.resetStyle(e.target);
-  }, []);
+    // If this feature is in the highlighted region, beef up the style
+    if (isInHighlightedRegion) {
+      style = {
+        ...style,
+        weight: 4,
+        color: '#ffd166',   // border color for region highlight
+        fillOpacity: 0.85,
+      };
+    }
+
+    return style;
+  }, [baseStyle, highlightedRegion]);
 
   const zoomToFeature = useCallback((e) => {
     const map = e.target._map;
     const layer = e.target;
-    if (layer.getBounds) map.fitBounds(layer.getBounds(), { padding: [20, 20] });
+    const props = layer.feature?.properties ?? {};
 
-    // Open a React Popup at the click location
+    if (layer.getBounds) {
+      map.fitBounds(layer.getBounds(), { padding: [20, 20] });
+    }
+
+    // Highlight this Area's Region
+    setHighlightedRegion(props.Region || null);
+
+    // Open popup at click
     setSelected({
-      props: layer.feature?.properties ?? {},
+      props,
       latlng: e.latlng,
     });
   }, []);
 
-  const onEachFeature = useCallback((feature, layer) => {
-    // Cursor hint
-    layer.on('mouseover', () => (layer._path && (layer._path.style.cursor = 'pointer')));
+  // Dark green region highlight on hover
+  const highlightRegionOnHover = useCallback((e) => {
+    const hoveredLayer = e.target;
+    const hoveredRegion = hoveredLayer.feature?.properties?.Region;
+    const gj = geoJsonRef.current;
 
-    // Hover + click handlers
-    layer.on({
-      mouseover: highlightFeature,
-      mouseout: resetHighlight,
-      click: zoomToFeature,
+    if (!gj || !hoveredRegion) return;
+
+    gj.eachLayer((layer) => {
+      const region = layer.feature?.properties?.Region;
+      if (region === hoveredRegion) {
+        layer.setStyle({
+          weight: 3,
+          color: '#00594f',      // c.a. green border
+          fillOpacity: 0.8,
+        });
+
+        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+          layer.bringToFront();
+        }
+      }
     });
+  }, []);
 
-    // Optional: also bind a simple Leaflet tooltip (hover)
-    const name = feature.properties?.Name || 'Unnamed area';
-    layer.bindTooltip(name, { sticky: true });
-  }, [highlightFeature, resetHighlight, zoomToFeature]);
+  const resetRegionHighlight = useCallback(() => {
+    const gj = geoJsonRef.current;
+    if (!gj || !gj.resetStyle) return;
+
+    // Reset all features back to styleFeature() result
+    gj.eachLayer((layer) => {
+      gj.resetStyle(layer);
+    });
+  }, []);
+
+  const onEachFeature = useCallback(
+    (feature, layer) => {
+      // Cursor hint
+      layer.on('mouseover', () => {
+        if (layer._path) layer._path.style.cursor = 'pointer';
+      });
+
+      // Hover + click handlers
+      layer.on({
+        mouseover: highlightRegionOnHover,
+        mouseout: resetRegionHighlight,
+        click: zoomToFeature,
+      });
+
+      // const name = feature.properties?.Name || 'Unnamed area';
+      // layer.bindTooltip(name, { sticky: true });
+      const name = feature.properties?.Name || "Unnamed area";
+      const region = feature.properties?.Region || "Unknown region";
+
+      layer.bindTooltip(
+        `
+          <div style="font-weight:bold;">${name}</div>
+          <div style="opacity:0.8;">${region}</div>
+        `,
+        {
+          sticky: true,
+          direction: "top",
+        }
+      );
+    },
+    [highlightRegionOnHover, resetRegionHighlight, zoomToFeature]
+  );
 
   return (
     <div>
 
       <div className="flex h-24 items-center justify-between px-2.5 py-2.5 bg-[#00594f]">
         {/* Logo */}
-        <div className="flex items-center gap-2 font-semibold text-lg text-white">
+        <div className="flex items-center gap-2 font-semibold text-lg text-white font-open-sans">
           <img src={caLogoWhite} alt="C.A. Logo" className="h-24 w-auto" />
-          <span className="hidden sm:block">C.A. Area Maps</span>
+          Area Maps
         </div>
         {/* Top-left controls */}
         <div className="">
@@ -183,7 +238,7 @@ export default function GeoMapComponent({ initialData }) {
             <div className="min-w-48">
               <strong>{selected.props.Name ?? 'Area'}</strong>
               <div>Region: {selected.props.Region ?? '—'}</div>
-              <div>WSC Recognized: {selected.props.WSCRecognized ?? 'Yes'}</div>
+              {/* <div>WSC Recognized: {selected.props.WSCRecognized ?? 'Yes'}</div> */}
             </div>
           </Popup>
         )}
