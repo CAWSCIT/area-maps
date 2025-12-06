@@ -1,9 +1,8 @@
-import './App.css'
+import './App.css';
 import 'leaflet/dist/leaflet.css';
 import Areas from './areas/Areas.json';
 
 import GeoMapComponent from './GeoMapComponent.jsx';
-
 
 function App() {
   return (
@@ -12,7 +11,7 @@ function App() {
         <GeoMapComponent initialData={Areas} />
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

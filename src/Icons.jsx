@@ -10,13 +10,13 @@ export const caMeetingIcon = L.divIcon({
       </div>
     </div>
   `,
-  iconSize: [32, 42],   // overall size (circle + pointer)
+  iconSize: [32, 42], // overall size (circle + pointer)
   iconAnchor: [16, 42], // bottom center = "tip" of pin
   popupAnchor: [0, -36],
 });
 
-
-export const clusterIcon = (count) => L.divIcon({
+export const clusterIcon = (count) =>
+  L.divIcon({
     className: 'ca-marker-icon ca-marker-icon--cluster',
     html: `
     <div class="ca-marker ca-marker-cluster">
@@ -26,4 +26,4 @@ export const clusterIcon = (count) => L.divIcon({
     iconSize: [16, 21],
     iconAnchor: [16, 42],
     popupAnchor: [0, -36],
-});
+  });

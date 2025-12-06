@@ -21,7 +21,6 @@ export default function LegendControl() {
     },
   ];
 
-
   useEffect(() => {
     const legend = L.control({ position: 'bottomright' });
 

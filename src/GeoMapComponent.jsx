@@ -1,4 +1,11 @@
-import { MapContainer, TileLayer, GeoJSON, Popup, Marker, Pane } from 'react-leaflet';
+import {
+  MapContainer,
+  TileLayer,
+  GeoJSON,
+  Popup,
+  Marker,
+  Pane,
+} from 'react-leaflet';
 import { useCallback, useRef, useState } from 'react';
 import L from 'leaflet';
 delete L.Icon.Default.prototype._getIconUrl;
@@ -7,7 +14,6 @@ import MarkerClusterGroup from 'react-leaflet-cluster';
 import LegendControl from './LegendControl';
 import { caMeetingIcon, clusterIcon } from './Icons';
 import caLogoWhite from '/src/assets/ca-logo-white.svg';
-
 
 export default function GeoMapComponent({ initialData }) {
   const [geoJsonData] = useState(initialData);
@@ -22,7 +28,9 @@ export default function GeoMapComponent({ initialData }) {
     setMeetingsError(null);
 
     try {
-      const res = await fetch('https://caws-api.azurewebsites.net/api/v1/meetings-tsml?area=all');
+      const res = await fetch(
+        'https://caws-api.azurewebsites.net/api/v1/meetings-tsml?area=all'
+      );
       if (!res.ok) {
         throw new Error(`HTTP ${res.status}`);
       }
@@ -39,8 +47,8 @@ export default function GeoMapComponent({ initialData }) {
       };
 
       const cleaned = data
-        .filter(m => m.latitude && m.longitude)
-        .map(m => ({
+        .filter((m) => m.latitude && m.longitude)
+        .map((m) => ({
           id: m.slug || `${m.latitude}-${m.longitude}-${m.name}`, // unique-ish fallback
           name: m.name || 'Meeting',
           latitude: Number(m.latitude),
@@ -74,33 +82,36 @@ export default function GeoMapComponent({ initialData }) {
     fillOpacity: 0.6,
   };
 
-  const styleFeature = useCallback((feature) => {
-    const props = feature?.properties ?? {};
-    const wsc = props.WSCRecognized;
-    const isInHighlightedRegion =
-      highlightedRegion && props.Region === highlightedRegion;
+  const styleFeature = useCallback(
+    (feature) => {
+      const props = feature?.properties ?? {};
+      const wsc = props.WSCRecognized;
+      const isInHighlightedRegion =
+        highlightedRegion && props.Region === highlightedRegion;
 
-    let style = {
-      ...baseStyle,
-    };
-
-    // non-null WSCRecognized = different fill color
-    if (wsc !== null && wsc !== undefined) {
-      style.fillColor = '#cc4f4f';
-    }
-
-    // If this feature is in the highlighted region, beef up the style
-    if (isInHighlightedRegion) {
-      style = {
-        ...style,
-        weight: 4,
-        color: '#ffd166',   // border color for region highlight
-        fillOpacity: 0.85,
+      let style = {
+        ...baseStyle,
       };
-    }
 
-    return style;
-  }, [baseStyle, highlightedRegion]);
+      // non-null WSCRecognized = different fill color
+      if (wsc !== null && wsc !== undefined) {
+        style.fillColor = '#cc4f4f';
+      }
+
+      // If this feature is in the highlighted region, beef up the style
+      if (isInHighlightedRegion) {
+        style = {
+          ...style,
+          weight: 4,
+          color: '#ffd166', // border color for region highlight
+          fillOpacity: 0.85,
+        };
+      }
+
+      return style;
+    },
+    [baseStyle, highlightedRegion]
+  );
 
   const zoomToFeature = useCallback((e) => {
     const map = e.target._map;
@@ -134,7 +145,7 @@ export default function GeoMapComponent({ initialData }) {
       if (region === hoveredRegion) {
         layer.setStyle({
           weight: 3,
-          color: '#00594f',      // c.a. green border
+          color: '#00594f', // c.a. green border
           fillOpacity: 0.8,
         });
 
@@ -171,8 +182,8 @@ export default function GeoMapComponent({ initialData }) {
 
       // const name = feature.properties?.Name || 'Unnamed area';
       // layer.bindTooltip(name, { sticky: true });
-      const name = feature.properties?.Name || "Unnamed area";
-      const region = feature.properties?.Region || "Unknown region";
+      const name = feature.properties?.Name || 'Unnamed area';
+      const region = feature.properties?.Region || 'Unknown region';
 
       layer.bindTooltip(
         `
@@ -181,7 +192,7 @@ export default function GeoMapComponent({ initialData }) {
         `,
         {
           sticky: true,
-          direction: "top",
+          direction: 'top',
         }
       );
     },
@@ -190,7 +201,6 @@ export default function GeoMapComponent({ initialData }) {
 
   return (
     <div>
-
       <div className="flex h-24 items-center justify-between px-2.5 py-2.5 bg-[#00594f]">
         {/* Logo */}
         <div className="flex items-center gap-2 font-semibold text-lg text-white font-open-sans">
@@ -210,14 +220,16 @@ export default function GeoMapComponent({ initialData }) {
           )}
 
           {meetingsError && (
-            <span className="text-red-500 text-sm">
-              {meetingsError}
-            </span>
+            <span className="text-red-500 text-sm">{meetingsError}</span>
           )}
         </div>
       </div>
 
-      <MapContainer center={[0, 0]} zoom={2} className="h-[calc(100vh_-_6rem)] w-full">
+      <MapContainer
+        center={[0, 0]}
+        zoom={2}
+        className="h-[calc(100vh_-_6rem)] w-full"
+      >
         {/* Attribution */}
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -273,46 +285,47 @@ export default function GeoMapComponent({ initialData }) {
               return clusterIcon(count);
             }}
           >
-
-          {meetings.map((m) => (
-            <Marker
-              key={m.id}
-              position={[m.latitude, m.longitude]}
-              icon={caMeetingIcon}
-            >
-              <Popup>
-                <div>
-                  <strong>{m.name}</strong>
-                  {m.area && <div>Area: {m.area}</div>}
-                  {m.address && <div>{m.address}</div>}
-                  {(m.day || m.time) && (
-                    <div>
-                      {m.day && <span>Day: {m.day}</span>} {/* or map 1–7 to names */}
-                      {m.time && (
-                        <>
-                          {' '}
-                          @ {m.time}
-                          {m.endTime && `–${m.endTime}`}
-                        </>
-                      )}
-                    </div>
-                  )}
-                  {m.attendanceOption && (
-                    <div>Attendance: {m.attendanceOption.replace('_', ' ')}</div>
-                  )}
-                  {m.url && (
-                    <div>
-                      <a href={m.url} target="_blank" rel="noreferrer">
-                        Website
-                      </a>
-                    </div>
-                  )}
-                  {m.notes && <div>Notes: {m.notes}</div>}
-                </div>
-              </Popup>
-            </Marker>
-          ))}
-
+            {meetings.map((m) => (
+              <Marker
+                key={m.id}
+                position={[m.latitude, m.longitude]}
+                icon={caMeetingIcon}
+              >
+                <Popup>
+                  <div>
+                    <strong>{m.name}</strong>
+                    {m.area && <div>Area: {m.area}</div>}
+                    {m.address && <div>{m.address}</div>}
+                    {(m.day || m.time) && (
+                      <div>
+                        {m.day && <span>Day: {m.day}</span>}{' '}
+                        {/* or map 1–7 to names */}
+                        {m.time && (
+                          <>
+                            {' '}
+                            @ {m.time}
+                            {m.endTime && `–${m.endTime}`}
+                          </>
+                        )}
+                      </div>
+                    )}
+                    {m.attendanceOption && (
+                      <div>
+                        Attendance: {m.attendanceOption.replace('_', ' ')}
+                      </div>
+                    )}
+                    {m.url && (
+                      <div>
+                        <a href={m.url} target="_blank" rel="noreferrer">
+                          Website
+                        </a>
+                      </div>
+                    )}
+                    {m.notes && <div>Notes: {m.notes}</div>}
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
           </MarkerClusterGroup>
         </Pane>
 
@@ -320,7 +333,7 @@ export default function GeoMapComponent({ initialData }) {
         <LegendControl />
       </MapContainer>
 
-    {/* End page container */}
+      {/* End page container */}
     </div>
   );
 }
