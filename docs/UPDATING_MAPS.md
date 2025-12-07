@@ -1,4 +1,7 @@
 ## Updating interactive maps
+
+To edit the GeoJSON, we recommend using an interactive tool such as [https://vector.rocks/](https://vector.rocks/). (Note: C.A. is not affiliated nor do we endorse this service.)
+
 To update these maps, you'll want to:
 
 1. Download the [Areas.json](src/areas/Areas.json) file (right-click and select "Save Link As..." to download).
