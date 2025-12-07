@@ -6,6 +6,9 @@
   font-family: 'Open Sans', sans-serif;
 }
 
+.leaflet-popup {
+  z-index: 1000;
+}
 
 .leaflet-interactive:focus {
   outline: none;

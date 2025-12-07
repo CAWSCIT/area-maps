@@ -6,7 +6,7 @@ import {
   Marker,
   Pane,
 } from 'react-leaflet';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import L from 'leaflet';
 delete L.Icon.Default.prototype._getIconUrl;
 import MarkerClusterGroup from 'react-leaflet-cluster';
@@ -15,55 +15,79 @@ import LegendControl from './LegendControl';
 import { caMeetingIcon, clusterIcon } from './Icons';
 import caLogoWhite from '/src/assets/ca-logo-white.svg';
 
+const MEETINGS_API_URL =
+  'https://caws-api.azurewebsites.net/api/v1/meetings-tsml?area=all';
+
+const DAY_NAMES = {
+  0: 'Sunday',
+  1: 'Monday',
+  2: 'Tuesday',
+  3: 'Wednesday',
+  4: 'Thursday',
+  5: 'Friday',
+  6: 'Saturday',
+};
+
+const BASE_LAYER_STYLE = {
+  weight: 2,
+  opacity: 1,
+  color: '#ffffff',
+  fillColor: '#4f83cc',
+  fillOpacity: 0.6,
+};
+
+const buildMeetingRecord = (meeting) => {
+  const latitude = Number(meeting.latitude);
+  const longitude = Number(meeting.longitude);
+
+  if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
+    return null;
+  }
+
+  return {
+    id: meeting.slug || `${latitude}-${longitude}-${meeting.name}`,
+    name: meeting.name || 'Meeting',
+    latitude,
+    longitude,
+    day: DAY_NAMES[meeting.day] ?? null,
+    time: meeting.time,
+    endTime: meeting.end_time,
+    area: meeting.area,
+    region: meeting.region,
+    address: meeting.formatted_address || meeting.address,
+    url: meeting.url,
+    attendanceOption: meeting.attendance_option
+      ? meeting.attendance_option.replace('_', ' ')
+      : null,
+    notes: meeting.notes,
+  };
+};
+
+const normalizeMeetings = (payload) =>
+  payload.map(buildMeetingRecord).filter(Boolean);
+
 export default function GeoMapComponent({ initialData }) {
-  const [geoJsonData] = useState(initialData);
+  const [geoJsonData] = useState(() => initialData);
   const [selected, setSelected] = useState(null);
   const [meetings, setMeetings] = useState([]);
   const [loadingMeetings, setLoadingMeetings] = useState(false);
   const [meetingsError, setMeetingsError] = useState(null);
   const [highlightedRegion, setHighlightedRegion] = useState(null);
 
+  const clusterRef = useRef(null);
+  const geoJsonRef = useRef(null);
+
   const handleLoadMeetings = useCallback(async () => {
     setLoadingMeetings(true);
     setMeetingsError(null);
 
     try {
-      const res = await fetch(
-        'https://caws-api.azurewebsites.net/api/v1/meetings-tsml?area=all'
-      );
+      const res = await fetch(MEETINGS_API_URL);
       if (!res.ok) {
         throw new Error(`HTTP ${res.status}`);
       }
-      const data = await res.json();
-
-      const dayNames = {
-        0: 'Sunday',
-        1: 'Monday',
-        2: 'Tuesday',
-        3: 'Wednesday',
-        4: 'Thursday',
-        5: 'Friday',
-        6: 'Saturday',
-      };
-
-      const cleaned = data
-        .filter((m) => m.latitude && m.longitude)
-        .map((m) => ({
-          id: m.slug || `${m.latitude}-${m.longitude}-${m.name}`, // unique-ish fallback
-          name: m.name || 'Meeting',
-          latitude: Number(m.latitude),
-          longitude: Number(m.longitude),
-          day: dayNames[m.day] || null,
-          time: m.time,
-          endTime: m.end_time,
-          area: m.area,
-          region: m.region,
-          address: m.formatted_address || m.address,
-          url: m.url,
-          attendanceOption: m.attendance_option, // "in_person", etc.
-          notes: m.notes,
-        }));
-      setMeetings(cleaned);
+      const payload = await res.json();
+      setMeetings(normalizeMeetings(payload));
     } catch (err) {
       console.error(err);
       setMeetingsError(err.message || 'Failed to load meetings');
@@ -72,45 +96,24 @@ export default function GeoMapComponent({ initialData }) {
     }
   }, []);
 
-  const geoJsonRef = useRef(null);
-
-  const baseStyle = {
-    weight: 2,
-    opacity: 1,
-    color: '#ffffff',
-    fillColor: '#4f83cc',
-    fillOpacity: 0.6,
-  };
-
   const styleFeature = useCallback(
     (feature) => {
       const props = feature?.properties ?? {};
-      const wsc = props.WSCRecognized;
-      const isInHighlightedRegion =
-        highlightedRegion && props.Region === highlightedRegion;
+      const style = { ...BASE_LAYER_STYLE };
 
-      let style = {
-        ...baseStyle,
-      };
-
-      // non-null WSCRecognized = different fill color
-      if (wsc !== null && wsc !== undefined) {
+      if (props.WSCRecognized !== null && props.WSCRecognized !== undefined) {
         style.fillColor = '#cc4f4f';
       }
 
-      // If this feature is in the highlighted region, beef up the style
-      if (isInHighlightedRegion) {
-        style = {
-          ...style,
-          weight: 4,
-          color: '#ffd166', // border color for region highlight
-          fillOpacity: 0.85,
-        };
+      if (highlightedRegion && props.Region === highlightedRegion) {
+        style.weight = 4;
+        style.color = '#ffd166';
+        style.fillOpacity = 0.85;
       }
 
       return style;
     },
-    [baseStyle, highlightedRegion]
+    [highlightedRegion]
   );
 
   const zoomToFeature = useCallback((e) => {
@@ -199,6 +202,64 @@ export default function GeoMapComponent({ initialData }) {
     [highlightRegionOnHover, resetRegionHighlight, zoomToFeature]
   );
 
+  const meetingMarkers = useMemo(
+    () =>
+      meetings.map((meeting) => (
+        <Marker
+          key={meeting.id}
+          position={[meeting.latitude, meeting.longitude]}
+          icon={caMeetingIcon}
+        >
+          <Popup>
+            <div>
+              <strong>{meeting.name}</strong>
+              {meeting.area && <div>Area: {meeting.area}</div>}
+              {meeting.address && <div>{meeting.address}</div>}
+              {(meeting.day || meeting.time) && (
+                <div>
+                  {meeting.day && <span>Day: {meeting.day}</span>}
+                  {meeting.time && (
+                    <>
+                      {' '}
+                      @ {meeting.time}
+                      {meeting.endTime && `–${meeting.endTime}`}
+                    </>
+                  )}
+                </div>
+              )}
+              {meeting.attendanceOption && (
+                <div>Attendance: {meeting.attendanceOption}</div>
+              )}
+              {meeting.url && (
+                <div>
+                  <a href={meeting.url} target="_blank" rel="noreferrer">
+                    Website
+                  </a>
+                </div>
+              )}
+              {meeting.notes && <div>Notes: {meeting.notes}</div>}
+            </div>
+          </Popup>
+        </Marker>
+      )),
+    [meetings]
+  );
+
+  const handleClusterClick = useCallback(
+    (event) => {
+      const cluster = event.layer;
+      const mapInstance = cluster._map;
+      if (!mapInstance) return;
+
+      const currentZoom = mapInstance.getZoom();
+      const targetZoom = Math.min(currentZoom + 3, mapInstance.getMaxZoom());
+
+      mapInstance.setView(cluster.getLatLng(), targetZoom, { animate: false });
+      mapInstance.once('moveend', () => clusterRef.current?.refreshClusters());
+    },
+    [clusterRef]
+  );
+
   return (
     <div>
       <div className="flex h-24 items-center justify-between px-2.5 py-2.5 bg-[#00594f]">
@@ -250,7 +311,6 @@ export default function GeoMapComponent({ initialData }) {
             <div className="min-w-48">
               <strong>{selected.props.Name ?? 'Area'}</strong>
               <div>Region: {selected.props.Region ?? '—'}</div>
-              {/* <div>WSC Recognized: {selected.props.WSCRecognized ?? 'Yes'}</div> */}
             </div>
           </Popup>
         )}
@@ -258,74 +318,18 @@ export default function GeoMapComponent({ initialData }) {
         {/* Pane for displaying meetings over the Areas */}
         <Pane name="meetings" style={{ zIndex: 600 }}>
           <MarkerClusterGroup
+            ref={clusterRef}
             chunkedLoading
             zoomToBoundsOnClick={false}
             spiderfyOnMaxZoom={true}
             showCoverageOnHover={false}
             maxClusterRadius={35}
-            onClick={(event) => {
-              const cluster = event.layer;
-              const map = cluster._map;
-
-              const currentZoom = map.getZoom();
-              const targetZoom = Math.min(currentZoom + 3, map.getMaxZoom());
-
-              // one atomic view change
-              map.setView(cluster.getLatLng(), targetZoom, { animate: false });
-
-              // when the zoom/move finishes, force a recompute
-              map.once('moveend', () => {
-                if (clusterRef.current) {
-                  clusterRef.current.refreshClusters();
-                }
-              });
-            }}
-            iconCreateFunction={(cluster) => {
-              const count = cluster.getChildCount();
-              return clusterIcon(count);
-            }}
+            onClick={handleClusterClick}
+            iconCreateFunction={(cluster) =>
+              clusterIcon(cluster.getChildCount())
+            }
           >
-            {meetings.map((m) => (
-              <Marker
-                key={m.id}
-                position={[m.latitude, m.longitude]}
-                icon={caMeetingIcon}
-              >
-                <Popup>
-                  <div>
-                    <strong>{m.name}</strong>
-                    {m.area && <div>Area: {m.area}</div>}
-                    {m.address && <div>{m.address}</div>}
-                    {(m.day || m.time) && (
-                      <div>
-                        {m.day && <span>Day: {m.day}</span>}{' '}
-                        {/* or map 1–7 to names */}
-                        {m.time && (
-                          <>
-                            {' '}
-                            @ {m.time}
-                            {m.endTime && `–${m.endTime}`}
-                          </>
-                        )}
-                      </div>
-                    )}
-                    {m.attendanceOption && (
-                      <div>
-                        Attendance: {m.attendanceOption.replace('_', ' ')}
-                      </div>
-                    )}
-                    {m.url && (
-                      <div>
-                        <a href={m.url} target="_blank" rel="noreferrer">
-                          Website
-                        </a>
-                      </div>
-                    )}
-                    {m.notes && <div>Notes: {m.notes}</div>}
-                  </div>
-                </Popup>
-              </Marker>
-            ))}
+            {meetingMarkers}
           </MarkerClusterGroup>
         </Pane>
 

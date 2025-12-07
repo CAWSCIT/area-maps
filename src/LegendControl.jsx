@@ -3,23 +3,14 @@ import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
 import L from 'leaflet';
 
+const LEGEND_ITEMS = [
+  { label: 'WSC Recognized', color: '#4f83cc' },
+  { label: 'Not WSC Recognized', color: '#cc4f4f' },
+  { label: 'Online Service Area (global)', color: 'rgba(0, 0, 0, 0)' },
+];
+
 export default function LegendControl() {
   const map = useMap();
-
-  const legendItems = [
-    {
-      label: 'WSC Recognized',
-      color: '#4f83cc',
-    },
-    {
-      label: 'Not WSC Recognized',
-      color: '#cc4f4f',
-    },
-    {
-      label: 'Online Service Area (global)',
-      color: 'rgba(0, 0, 0, 0)',
-    },
-  ];
 
   useEffect(() => {
     const legend = L.control({ position: 'bottomright' });
@@ -36,9 +27,8 @@ export default function LegendControl() {
 
       div.innerHTML = `
         <div style="font-weight: bold; margin-bottom: 4px;">Legend</div>
-        ${legendItems
-          .map(
-            (item) => `
+        ${LEGEND_ITEMS.map(
+          (item) => `
               <div style="display: flex; align-items: center; margin-bottom: 4px;">
                 <span style="
                   width: 14px;
@@ -51,8 +41,7 @@ export default function LegendControl() {
                 <span>${item.label}</span>
               </div>
             `
-          )
-          .join('')}
+        ).join('')}
       `;
       return div;
     };
@@ -62,7 +51,7 @@ export default function LegendControl() {
     return () => {
       legend.remove();
     };
-  }, [map, legendItems]);
+  }, [map]);
 
   return null;
 }
