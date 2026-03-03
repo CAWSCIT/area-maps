@@ -155,6 +155,9 @@ export default function GeoMapComponent({ initialData }) {
         if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
           layer.bringToFront();
         }
+      } else {
+        // Reset non-matching layers so moving between regions is clean
+        gj.resetStyle(layer);
       }
     });
   }, []);
@@ -171,20 +174,6 @@ export default function GeoMapComponent({ initialData }) {
 
   const onEachFeature = useCallback(
     (feature, layer) => {
-      // Cursor hint
-      layer.on('mouseover', () => {
-        if (layer._path) layer._path.style.cursor = 'pointer';
-      });
-
-      // Hover + click handlers
-      layer.on({
-        mouseover: highlightRegionOnHover,
-        mouseout: resetRegionHighlight,
-        click: zoomToFeature,
-      });
-
-      // const name = feature.properties?.Name || 'Unnamed area';
-      // layer.bindTooltip(name, { sticky: true });
       const name = feature.properties?.Name || 'Unnamed area';
       const region = feature.properties?.Region || 'Unknown region';
 
@@ -198,6 +187,34 @@ export default function GeoMapComponent({ initialData }) {
           direction: 'top',
         }
       );
+
+      layer.on({
+        mouseover: (e) => {
+          if (layer._path) layer._path.style.cursor = 'pointer';
+
+          // Close any other open tooltips so only one shows at a time
+          const gj = geoJsonRef.current;
+          if (gj) {
+            gj.eachLayer((l) => {
+              if (l !== layer) l.closeTooltip();
+            });
+          }
+
+          highlightRegionOnHover(e);
+        },
+        mouseout: (e) => {
+          // If the mouse moved to another polygon, let its mouseover handle
+          // the style transition — don't reset here or we'd stomp the new highlight.
+          const movedToPolygon = e.originalEvent?.relatedTarget
+            ?.classList?.contains('leaflet-interactive');
+
+          if (!movedToPolygon) {
+            layer.closeTooltip();
+            resetRegionHighlight();
+          }
+        },
+        click: zoomToFeature,
+      });
     },
     [highlightRegionOnHover, resetRegionHighlight, zoomToFeature]
   );
