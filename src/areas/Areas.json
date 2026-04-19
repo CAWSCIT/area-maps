@@ -110,7 +110,8 @@
       "properties": {
         "Name": "Colorado",
         "Region": "Southwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.ca-colorado.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -145,7 +146,8 @@
       "properties": {
         "Name": "Kansas",
         "Region": "Southwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.cakansas.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -203,7 +205,8 @@
       "properties": {
         "Name": "Nebraska",
         "Region": "Midwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://nebraskaca.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -382,7 +385,8 @@
       "properties": {
         "Name": "Oregon/Southwest Washington",
         "Region": "Pacific North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.caorwa.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -499,7 +503,8 @@
       "properties": {
         "Name": "Minnesota",
         "Region": "Midwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.caminnesota.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -932,7 +937,8 @@
       "properties": {
         "Name": "Maritimes",
         "Region": "Atlantic North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://ca-maritimes.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -1035,7 +1041,8 @@
       "properties": {
         "Name": "Illinois",
         "Region": "Midwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://illinoisareaca.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -1157,7 +1164,8 @@
       "properties": {
         "Name": "Indiana",
         "Region": "Midwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.indiana-ca.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -1223,7 +1231,8 @@
       "properties": {
         "Name": "Michigan",
         "Region": "Midwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://camichigan.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -1441,7 +1450,8 @@
       "properties": {
         "Name": "Ohio",
         "Region": "Midwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://caohioarea.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -1502,7 +1512,8 @@
       "properties": {
         "Name": "New Mexico",
         "Region": "Southwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.canminfo.com"
       },
       "geometry": {
         "type": "Polygon",
@@ -1532,7 +1543,8 @@
       "properties": {
         "Name": "North Texas",
         "Region": "Southwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.northtexasca.com"
       },
       "geometry": {
         "type": "Polygon",
@@ -1597,7 +1609,8 @@
       "properties": {
         "Name": "South Central Texas",
         "Region": "Southwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://ca-scta.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -1624,7 +1637,8 @@
       "properties": {
         "Name": "Texas Area Service Gulf Coast",
         "Region": "Southwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.ca-texas.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -1649,7 +1663,8 @@
       "properties": {
         "Name": "Louisiana",
         "Region": "Atlantic South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://louaca.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -1726,7 +1741,8 @@
       "properties": {
         "Name": "Oklahoma",
         "Region": "Southwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://caoklahoma.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -1812,7 +1828,8 @@
       "properties": {
         "Name": "Florida",
         "Region": "Atlantic South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://caflorida.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -1870,7 +1887,8 @@
       "properties": {
         "Name": "Arkansas",
         "Region": "Atlantic South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.caarkansas.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -1936,7 +1954,8 @@
       "properties": {
         "Name": "Missouri",
         "Region": "Midwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://camissouri.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -2122,7 +2141,8 @@
       "properties": {
         "Name": "Alabama",
         "Region": "Atlantic South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://cocaineanonymousal.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -2169,7 +2189,8 @@
       "properties": {
         "Name": "Georgia",
         "Region": "Atlantic South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.georgiaca.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -2271,7 +2292,8 @@
       "properties": {
         "Name": "South Carolina",
         "Region": "Atlantic South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://scareaca.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -2366,7 +2388,8 @@
       "properties": {
         "Name": "Northern Alberta",
         "Region": "Pacific North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.ca-northab.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -2644,7 +2667,8 @@
       "properties": {
         "Name": "North Carolina",
         "Region": "Atlantic South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.ca-nc.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -2830,7 +2854,8 @@
       "properties": {
         "Name": "Connecticut",
         "Region": "Atlantic North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.caofct.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -3089,7 +3114,8 @@
       "properties": {
         "Name": "Southern Ontario",
         "Region": "Atlantic North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.ca-on.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -3242,7 +3268,8 @@
       "properties": {
         "Name": "Quebec",
         "Region": "Atlantic North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.cocainomanes-anonymes.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -3345,7 +3372,8 @@
       "properties": {
         "Name": "Eastern Pennsylvania/New Jersey/Delaware",
         "Region": "Atlantic North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://caphilly.org/"
       },
       "geometry": {
         "type": "Polygon",
@@ -3374,7 +3402,8 @@
       "properties": {
         "Name": "New York",
         "Region": "Atlantic North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://canewyork.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -3522,7 +3551,8 @@
       "properties": {
         "Name": "Massachusetts",
         "Region": "Atlantic North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.caofma.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -3751,7 +3781,8 @@
       "properties": {
         "Name": "C.A. Holland",
         "Region": "Mainland Europe",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://ca-holland.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -4024,7 +4055,8 @@
       "properties": {
         "Name": "Germany",
         "Region": "Mainland Europe",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://ca-deutschland.com"
       },
       "geometry": {
         "type": "Polygon",
@@ -4199,7 +4231,8 @@
       "properties": {
         "Name": "Switzerland",
         "Region": "Mainland Europe",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.caswitzerland.ch"
       },
       "geometry": {
         "type": "Polygon",
@@ -4369,7 +4402,8 @@
       "properties": {
         "Name": "Portugal",
         "Region": "Mainland Europe",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.ca-portugal.com"
       },
       "geometry": {
         "type": "Polygon",
@@ -4428,7 +4462,8 @@
       "properties": {
         "Name": "France",
         "Region": "Mainland Europe",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://cafrance.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -4711,7 +4746,8 @@
       "properties": {
         "Name": "Spain",
         "Region": "Mainland Europe",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://caspain.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -4863,7 +4899,8 @@
       "properties": {
         "Name": "Denmark",
         "Region": "Mainland Europe",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://ca-denmark.dk"
       },
       "geometry": {
         "type": "Polygon",
@@ -4936,7 +4973,8 @@
       "properties": {
         "Name": "Sweden",
         "Region": "Mainland Europe",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://ca-sweden.se"
       },
       "geometry": {
         "type": "Polygon",
@@ -5043,7 +5081,8 @@
       "properties": {
         "Name": "Poland",
         "Region": "Mainland Europe",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://ca-polska.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -5192,7 +5231,8 @@
       "properties": {
         "Name": "Greece",
         "Region": "Mainland Europe",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.cagreece.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -5290,7 +5330,8 @@
       "properties": {
         "Name": "Russia",
         "Region": "Mainland Europe",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://ca-russia.com"
       },
       "geometry": {
         "type": "Polygon",
@@ -5879,7 +5920,8 @@
       "properties": {
         "Name": "Hong Kong",
         "Region": "European",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://cahongkong.com"
       },
       "geometry": {
         "type": "Polygon",
@@ -5911,7 +5953,8 @@
       "properties": {
         "Name": "Ireland",
         "Region": "European",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.caireland.live"
       },
       "geometry": {
         "type": "Polygon",
@@ -6117,7 +6160,8 @@
       "properties": {
         "Name": "South Africa",
         "Region": "European",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://ca.org.za"
       },
       "geometry": {
         "type": "Polygon",
@@ -6255,7 +6299,8 @@
       "properties": {
         "Name": "Wales",
         "Region": "European",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://cawales.org.uk"
       },
       "geometry": {
         "type": "Polygon",
@@ -6364,7 +6409,8 @@
       "properties": {
         "Name": "Thailand",
         "Region": "European",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://cathailand.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -7080,7 +7126,8 @@
       "properties": {
         "Name": "British Columbia",
         "Region": "Pacific North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.ca-bc.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -7130,7 +7177,8 @@
       "properties": {
         "Name": "Southern Alberta",
         "Region": "Pacific North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.ca-ab.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -7153,7 +7201,8 @@
       "properties": {
         "Name": "Idaho",
         "Region": "Pacific North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.caidaho.com"
       },
       "geometry": {
         "type": "Polygon",
@@ -7444,7 +7493,8 @@
       "properties": {
         "Name": "Manitoba",
         "Region": "Midwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.camanitoba.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -7613,7 +7663,8 @@
       "properties": {
         "Name": "Iowa",
         "Region": "Midwest",
-        "WSCRecognized": "false"
+        "WSCRecognized": "false",
+        "Website": "https://caiowa.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -7949,7 +8000,8 @@
       "properties": {
         "Name": "San Diego",
         "Region": "Pacific South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.casandiego.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -8317,7 +8369,8 @@
       "properties": {
         "Name": "London",
         "Region": "European",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://ca-london.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -8490,7 +8543,8 @@
       "properties": {
         "Name": "Sussex",
         "Region": "European",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.ca-sussex.uk"
       },
       "geometry": {
         "type": "Polygon",
@@ -8612,7 +8666,8 @@
       "properties": {
         "Name": "Central UK",
         "Region": "European",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://centralukca.co.uk"
       },
       "geometry": {
         "type": "Polygon",
@@ -9079,7 +9134,8 @@
       "properties": {
         "Name": "CA UK",
         "Region": "European",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://cocaineanonymous.org.uk"
       },
       "geometry": {
         "type": "Polygon",
@@ -10149,7 +10205,8 @@
       "properties": {
         "Name": "Los Angeles",
         "Region": "Pacific South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.ca4la.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -10220,7 +10277,8 @@
       "properties": {
         "Name": "Orange County",
         "Region": "Pacific South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://orangecountyca.info"
       },
       "geometry": {
         "type": "Polygon",
@@ -10269,7 +10327,8 @@
       "properties": {
         "Name": "Arizona",
         "Region": "Southwest",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://caarizona.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -10361,7 +10420,8 @@
       "properties": {
         "Name": "Australia",
         "Region": "Mainland Europe",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.cocaineanonymous.com.au"
       },
       "geometry": {
         "type": "Polygon",
@@ -10423,7 +10483,8 @@
       "properties": {
         "Name": "Indonesia",
         "Region": "Mainland Europe",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "http://cajakarta.com"
       },
       "geometry": {
         "type": "Polygon",
@@ -10682,7 +10743,8 @@
       "properties": {
         "Name": "San Fernando Valley",
         "Region": "Pacific South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.sfvca.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -10817,7 +10879,8 @@
       "properties": {
         "Name": "Antelope Valley",
         "Region": "Pacific South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://antelopevalleyca.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -10845,7 +10908,8 @@
       "properties": {
         "Name": "San Gabriel/Pomona Valley",
         "Region": "Pacific South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://sgpvca.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -10946,7 +11010,8 @@
       "properties": {
         "Name": "West Inland Empire",
         "Region": "Pacific South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.wieca.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -11112,7 +11177,8 @@
       "properties": {
         "Name": "Central California",
         "Region": "Pacific South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.cencalca.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -11143,7 +11209,8 @@
       "properties": {
         "Name": "Inland Empire",
         "Region": "Pacific South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.inlandempireca.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -11314,7 +11381,8 @@
       "properties": {
         "Name": "Nevada",
         "Region": "Pacific South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.snvca.org"
       },
       "geometry": {
         "type": "Polygon",
@@ -11349,7 +11417,8 @@
       "properties": {
         "Name": "Northern California",
         "Region": "Pacific North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://canorcal.org"
       },
       "geometry": {
         "type": "Polygon",
