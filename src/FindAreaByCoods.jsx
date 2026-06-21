@@ -10,6 +10,8 @@ export function findAreaForLatLng(featureCollection, lng, lat) {
   const pt = point([lng, lat]); // [lon, lat] for GeoJSON
 
   for (const feature of featureCollection.features) {
+    // Skip features with no geometry (e.g. online-only areas) — they have no polygon to test
+    if (!feature.geometry) continue;
     if (booleanPointInPolygon(pt, feature)) {
       return feature; // this is the Area containing the point
     }
