@@ -8106,7 +8106,7 @@
       "properties": {
         "Name": "South West",
         "Region": "European",
-        "WSCRecognized": true,
+        "WSCRecognized": null,
         "Website": "https://casw.co.uk/",
         "Hotline": "+448006120225"
       },
