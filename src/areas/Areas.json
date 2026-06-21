@@ -111,7 +111,8 @@
         "Name": "Colorado",
         "Region": "Southwest",
         "WSCRecognized": null,
-        "Website": "https://www.ca-colorado.org"
+        "Website": "https://www.ca-colorado.org",
+        "Hotline": "+18667687709"
       },
       "geometry": {
         "type": "Polygon",
@@ -147,7 +148,8 @@
         "Name": "Kansas",
         "Region": "Southwest",
         "WSCRecognized": null,
-        "Website": "https://www.cakansas.org"
+        "Website": "https://www.cakansas.org",
+        "Hotline": "+13167895236"
       },
       "geometry": {
         "type": "Polygon",
@@ -206,7 +208,8 @@
         "Name": "Nebraska",
         "Region": "Midwest",
         "WSCRecognized": null,
-        "Website": "https://nebraskaca.org"
+        "Website": "https://nebraskaca.org",
+        "Hotline": "+14029788881"
       },
       "geometry": {
         "type": "Polygon",
@@ -386,7 +389,8 @@
         "Name": "Oregon/Southwest Washington",
         "Region": "Pacific North",
         "WSCRecognized": null,
-        "Website": "https://www.caorwa.org"
+        "Website": "https://www.caorwa.org",
+        "Hotline": "+15032561666"
       },
       "geometry": {
         "type": "Polygon",
@@ -938,7 +942,8 @@
         "Name": "Maritimes",
         "Region": "Atlantic North",
         "WSCRecognized": null,
-        "Website": "https://ca-maritimes.org"
+        "Website": "https://ca-maritimes.org",
+        "Hotline": "+19027899160"
       },
       "geometry": {
         "type": "Polygon",
@@ -1042,7 +1047,8 @@
         "Name": "Illinois",
         "Region": "Midwest",
         "WSCRecognized": null,
-        "Website": "https://illinoisareaca.org"
+        "Website": "https://illinoisareaca.org",
+        "Hotline": "+13128343784"
       },
       "geometry": {
         "type": "Polygon",
@@ -1451,7 +1457,8 @@
         "Name": "Ohio",
         "Region": "Midwest",
         "WSCRecognized": null,
-        "Website": "https://caohioarea.org"
+        "Website": "https://caohioarea.org",
+        "Hotline": "+12162209899"
       },
       "geometry": {
         "type": "Polygon",
@@ -1513,7 +1520,8 @@
         "Name": "New Mexico",
         "Region": "Southwest",
         "WSCRecognized": null,
-        "Website": "https://www.canminfo.com"
+        "Website": "https://www.canminfo.com",
+        "Hotline": "+15055692740"
       },
       "geometry": {
         "type": "Polygon",
@@ -1544,7 +1552,8 @@
         "Name": "North Texas",
         "Region": "Southwest",
         "WSCRecognized": null,
-        "Website": "https://www.northtexasca.com"
+        "Website": "https://northtexasca.org/",
+        "Hotline": "+18446068922"
       },
       "geometry": {
         "type": "Polygon",
@@ -1742,7 +1751,8 @@
         "Name": "Oklahoma",
         "Region": "Southwest",
         "WSCRecognized": null,
-        "Website": "https://caoklahoma.org"
+        "Website": "https://caoklahoma.org",
+        "Hotline": "+14052093331"
       },
       "geometry": {
         "type": "Polygon",
@@ -1829,7 +1839,8 @@
         "Name": "Florida",
         "Region": "Atlantic South",
         "WSCRecognized": null,
-        "Website": "https://caflorida.org"
+        "Website": "https://caflorida.org",
+        "Hotline": "+17277937137"
       },
       "geometry": {
         "type": "Polygon",
@@ -1955,7 +1966,8 @@
         "Name": "Missouri",
         "Region": "Midwest",
         "WSCRecognized": null,
-        "Website": "https://camissouri.org"
+        "Website": "https://camissouri.org",
+        "Hotline": "+18336626322"
       },
       "geometry": {
         "type": "Polygon",
@@ -2142,7 +2154,8 @@
         "Name": "Alabama",
         "Region": "Atlantic South",
         "WSCRecognized": null,
-        "Website": "https://cocaineanonymousal.org"
+        "Website": "https://cocaineanonymousal.org",
+        "Hotline": "+12052596403"
       },
       "geometry": {
         "type": "Polygon",
@@ -2293,7 +2306,8 @@
         "Name": "South Carolina",
         "Region": "Atlantic South",
         "WSCRecognized": null,
-        "Website": "https://scareaca.org"
+        "Website": "https://scareaca.org",
+        "Hotline": "+18036673263"
       },
       "geometry": {
         "type": "Polygon",
@@ -2389,7 +2403,8 @@
         "Name": "Northern Alberta",
         "Region": "Pacific North",
         "WSCRecognized": null,
-        "Website": "https://www.ca-northab.org"
+        "Website": "https://www.ca-northab.org",
+        "Hotline": "+17804252715"
       },
       "geometry": {
         "type": "Polygon",
@@ -2668,7 +2683,8 @@
         "Name": "North Carolina",
         "Region": "Atlantic South",
         "WSCRecognized": null,
-        "Website": "https://www.ca-nc.org"
+        "Website": "https://www.ca-nc.org",
+        "Hotline": "+17042662105"
       },
       "geometry": {
         "type": "Polygon",
@@ -3115,7 +3131,8 @@
         "Name": "Southern Ontario",
         "Region": "Atlantic North",
         "WSCRecognized": null,
-        "Website": "https://www.ca-on.org"
+        "Website": "https://www.ca-on.org",
+        "Hotline": "+14169277858"
       },
       "geometry": {
         "type": "Polygon",
@@ -3269,7 +3286,8 @@
         "Name": "Quebec",
         "Region": "Atlantic North",
         "WSCRecognized": null,
-        "Website": "https://www.cocainomanes-anonymes.org"
+        "Website": "https://www.cocainomanes-anonymes.org",
+        "Hotline": "+15145279999"
       },
       "geometry": {
         "type": "Polygon",
@@ -3373,7 +3391,8 @@
         "Name": "Eastern Pennsylvania/New Jersey/Delaware",
         "Region": "Atlantic North",
         "WSCRecognized": null,
-        "Website": "https://caphilly.org/"
+        "Website": "https://caphilly.org/",
+        "Hotline": "+16108766666"
       },
       "geometry": {
         "type": "Polygon",
@@ -3552,7 +3571,8 @@
         "Name": "Massachusetts",
         "Region": "Atlantic North",
         "WSCRecognized": null,
-        "Website": "https://www.caofma.org"
+        "Website": "https://www.caofma.org",
+        "Hotline": "+16178070979"
       },
       "geometry": {
         "type": "Polygon",
@@ -3782,7 +3802,8 @@
         "Name": "C.A. Holland",
         "Region": "Mainland Europe",
         "WSCRecognized": null,
-        "Website": "https://ca-holland.org"
+        "Website": "https://ca-holland.org",
+        "Hotline": "+31610192770"
       },
       "geometry": {
         "type": "Polygon",
@@ -3877,7 +3898,8 @@
         "Name": "C.A. Holland Noord",
         "Region": "Mainland Europe",
         "WSCRecognized": null,
-        "Website": "https://ca-holland.org"
+        "Website": "https://ca-holland.org",
+        "Hotline": "+31610192770"
       },
       "geometry": {
         "type": "Polygon",
@@ -4057,7 +4079,8 @@
         "Name": "Germany",
         "Region": "Mainland Europe",
         "WSCRecognized": null,
-        "Website": "https://ca-deutschland.com"
+        "Website": "https://ca-deutschland.com",
+        "Hotline": "+4915251018808"
       },
       "geometry": {
         "type": "Polygon",
@@ -4233,7 +4256,8 @@
         "Name": "Switzerland",
         "Region": "Mainland Europe",
         "WSCRecognized": null,
-        "Website": "https://www.caswitzerland.ch"
+        "Website": "https://www.caswitzerland.ch",
+        "Hotline": "+41783009134"
       },
       "geometry": {
         "type": "Polygon",
@@ -4404,7 +4428,8 @@
         "Name": "Portugal",
         "Region": "Mainland Europe",
         "WSCRecognized": null,
-        "Website": "https://www.ca-portugal.com"
+        "Website": "https://www.ca-portugal.com",
+        "Hotline": "+351939166316"
       },
       "geometry": {
         "type": "Polygon",
@@ -4464,7 +4489,8 @@
         "Name": "France",
         "Region": "Mainland Europe",
         "WSCRecognized": null,
-        "Website": "https://cafrance.org"
+        "Website": "https://cafrance.org",
+        "Hotline": "+33745829454"
       },
       "geometry": {
         "type": "Polygon",
@@ -4748,7 +4774,8 @@
         "Name": "Spain",
         "Region": "Mainland Europe",
         "WSCRecognized": null,
-        "Website": "https://caspain.org"
+        "Website": "https://caspain.org",
+        "Hotline": "+34645871185"
       },
       "geometry": {
         "type": "Polygon",
@@ -4901,7 +4928,8 @@
         "Name": "Denmark",
         "Region": "Mainland Europe",
         "WSCRecognized": null,
-        "Website": "https://ca-denmark.dk"
+        "Website": "https://ca-denmark.dk",
+        "Hotline": "+4527434044"
       },
       "geometry": {
         "type": "Polygon",
@@ -4975,7 +5003,8 @@
         "Name": "Sweden",
         "Region": "Mainland Europe",
         "WSCRecognized": null,
-        "Website": "https://ca-sweden.se"
+        "Website": "https://ca-sweden.se",
+        "Hotline": "+46735838630"
       },
       "geometry": {
         "type": "Polygon",
@@ -5083,7 +5112,8 @@
         "Name": "Poland",
         "Region": "Mainland Europe",
         "WSCRecognized": null,
-        "Website": "https://ca-polska.org"
+        "Website": "https://ca-polska.org",
+        "Hotline": "+48791064370"
       },
       "geometry": {
         "type": "Polygon",
@@ -5233,7 +5263,8 @@
         "Name": "Greece",
         "Region": "Mainland Europe",
         "WSCRecognized": null,
-        "Website": "https://www.cagreece.org"
+        "Website": "https://www.cagreece.org",
+        "Hotline": "+306972781662"
       },
       "geometry": {
         "type": "Polygon",
@@ -5332,7 +5363,8 @@
         "Name": "Russia",
         "Region": "Mainland Europe",
         "WSCRecognized": null,
-        "Website": "https://ca-russia.com"
+        "Website": "https://ca-russia.com",
+        "Hotline": "+79816874907"
       },
       "geometry": {
         "type": "Polygon",
@@ -5955,7 +5987,8 @@
         "Name": "Ireland",
         "Region": "European",
         "WSCRecognized": null,
-        "Website": "https://www.caireland.live"
+        "Website": "https://www.caireland.live",
+        "Hotline": "+443300432789"
       },
       "geometry": {
         "type": "Polygon",
@@ -6009,7 +6042,9 @@
       "properties": {
         "Name": "Scotland",
         "Region": "European",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://cascotland.org.uk/",
+        "Hotline": "+441419596363"
       },
       "geometry": {
         "type": "Polygon",
@@ -6162,7 +6197,8 @@
         "Name": "South Africa",
         "Region": "European",
         "WSCRecognized": null,
-        "Website": "https://ca.org.za"
+        "Website": "https://ca.org.za",
+        "Hotline": "+27693779680"
       },
       "geometry": {
         "type": "Polygon",
@@ -6301,7 +6337,8 @@
         "Name": "Wales",
         "Region": "European",
         "WSCRecognized": null,
-        "Website": "https://cawales.org.uk"
+        "Website": "https://cawales.org.uk",
+        "Hotline": "+448006120225"
       },
       "geometry": {
         "type": "Polygon",
@@ -7128,7 +7165,8 @@
         "Name": "British Columbia",
         "Region": "Pacific North",
         "WSCRecognized": null,
-        "Website": "https://www.ca-bc.org"
+        "Website": "https://www.ca-bc.org",
+        "Hotline": "+16046628500"
       },
       "geometry": {
         "type": "Polygon",
@@ -7179,7 +7217,8 @@
         "Name": "Southern Alberta",
         "Region": "Pacific North",
         "WSCRecognized": null,
-        "Website": "https://www.ca-ab.org"
+        "Website": "https://www.ca-ab.org",
+        "Hotline": "+18337623700"
       },
       "geometry": {
         "type": "Polygon",
@@ -7203,7 +7242,8 @@
         "Name": "Idaho",
         "Region": "Pacific North",
         "WSCRecognized": null,
-        "Website": "https://www.caidaho.com"
+        "Website": "https://www.caidaho.com",
+        "Hotline": "+12084900811"
       },
       "geometry": {
         "type": "Polygon",
@@ -7495,7 +7535,8 @@
         "Name": "Manitoba",
         "Region": "Midwest",
         "WSCRecognized": null,
-        "Website": "https://www.camanitoba.org"
+        "Website": "https://www.camanitoba.org",
+        "Hotline": "+12042502626"
       },
       "geometry": {
         "type": "Polygon",
@@ -8002,7 +8043,8 @@
         "Name": "San Diego",
         "Region": "Pacific South",
         "WSCRecognized": null,
-        "Website": "https://www.casandiego.org"
+        "Website": "https://www.casandiego.org",
+        "Hotline": "+18662422248"
       },
       "geometry": {
         "type": "Polygon",
@@ -8062,9 +8104,11 @@
     {
       "type": "Feature",
       "properties": {
-        "Name": "West Country",
+        "Name": "South West",
         "Region": "European",
-        "WSCRecognized": null
+        "WSCRecognized": true,
+        "Website": "https://casw.co.uk/",
+        "Hotline": "+448006120225"
       },
       "geometry": {
         "type": "Polygon",
@@ -8371,7 +8415,8 @@
         "Name": "London",
         "Region": "European",
         "WSCRecognized": null,
-        "Website": "https://ca-london.org"
+        "Website": "https://ca-london.org",
+        "Hotline": "+448000595130"
       },
       "geometry": {
         "type": "Polygon",
@@ -8545,7 +8590,8 @@
         "Name": "Sussex",
         "Region": "European",
         "WSCRecognized": null,
-        "Website": "https://www.ca-sussex.uk"
+        "Website": "https://www.ca-sussex.uk",
+        "Hotline": "+448000053902"
       },
       "geometry": {
         "type": "Polygon",
@@ -8668,7 +8714,8 @@
         "Name": "Central UK",
         "Region": "European",
         "WSCRecognized": null,
-        "Website": "https://centralukca.co.uk"
+        "Website": "https://centralukca.org/",
+        "Hotline": "+448006120225"
       },
       "geometry": {
         "type": "Polygon",
@@ -9136,7 +9183,8 @@
         "Name": "CA UK",
         "Region": "European",
         "WSCRecognized": null,
-        "Website": "https://cocaineanonymous.org.uk"
+        "Website": "https://cocaineanonymous.org.uk",
+        "Hotline": "+448006120225"
       },
       "geometry": {
         "type": "Polygon",
@@ -10207,7 +10255,8 @@
         "Name": "Los Angeles",
         "Region": "Pacific South",
         "WSCRecognized": null,
-        "Website": "https://www.ca4la.org"
+        "Website": "https://www.ca4la.org",
+        "Hotline": "+18887148341"
       },
       "geometry": {
         "type": "Polygon",
@@ -10279,7 +10328,8 @@
         "Name": "Orange County",
         "Region": "Pacific South",
         "WSCRecognized": null,
-        "Website": "https://orangecountyca.info"
+        "Website": "https://orangecountyca.info",
+        "Hotline": "+19496501011"
       },
       "geometry": {
         "type": "Polygon",
@@ -10329,7 +10379,8 @@
         "Name": "Arizona",
         "Region": "Southwest",
         "WSCRecognized": null,
-        "Website": "https://caarizona.org"
+        "Website": "https://caarizona.org",
+        "Hotline": "+16022793838"
       },
       "geometry": {
         "type": "Polygon",
@@ -10485,7 +10536,8 @@
         "Name": "Indonesia",
         "Region": "Mainland Europe",
         "WSCRecognized": null,
-        "Website": "http://cajakarta.com"
+        "Website": "http://cajakarta.com",
+        "Hotline": "+628119632510"
       },
       "geometry": {
         "type": "Polygon",
@@ -10745,7 +10797,8 @@
         "Name": "San Fernando Valley",
         "Region": "Pacific South",
         "WSCRecognized": null,
-        "Website": "https://www.sfvca.org"
+        "Website": "https://www.sfvca.org",
+        "Hotline": "+18334467322"
       },
       "geometry": {
         "type": "Polygon",
@@ -10881,7 +10934,8 @@
         "Name": "Antelope Valley",
         "Region": "Pacific South",
         "WSCRecognized": null,
-        "Website": "https://antelopevalleyca.org"
+        "Website": "https://antelopevalleyca.org",
+        "Hotline": "+12135291234"
       },
       "geometry": {
         "type": "Polygon",
@@ -10910,7 +10964,8 @@
         "Name": "San Gabriel/Pomona Valley",
         "Region": "Pacific South",
         "WSCRecognized": null,
-        "Website": "https://sgpvca.org"
+        "Website": "https://sgpvca.org",
+        "Hotline": "+16264472887"
       },
       "geometry": {
         "type": "Polygon",
@@ -11012,7 +11067,8 @@
         "Name": "West Inland Empire",
         "Region": "Pacific South",
         "WSCRecognized": null,
-        "Website": "https://www.wieca.org"
+        "Website": "https://www.wieca.org",
+        "Hotline": "+19096192834"
       },
       "geometry": {
         "type": "Polygon",
@@ -11179,7 +11235,8 @@
         "Name": "Central California",
         "Region": "Pacific South",
         "WSCRecognized": null,
-        "Website": "https://www.cencalca.org"
+        "Website": "https://www.cencalca.org",
+        "Hotline": "+18056273240"
       },
       "geometry": {
         "type": "Polygon",
@@ -11211,7 +11268,8 @@
         "Name": "Inland Empire",
         "Region": "Pacific South",
         "WSCRecognized": null,
-        "Website": "https://www.inlandempireca.org"
+        "Website": "https://www.inlandempireca.org",
+        "Hotline": "+19513593895"
       },
       "geometry": {
         "type": "Polygon",
@@ -11383,7 +11441,8 @@
         "Name": "Nevada",
         "Region": "Pacific South",
         "WSCRecognized": null,
-        "Website": "https://www.snvca.org"
+        "Website": "https://www.snvca.org",
+        "Hotline": "+17029410950"
       },
       "geometry": {
         "type": "Polygon",
@@ -11419,7 +11478,8 @@
         "Name": "Northern California",
         "Region": "Pacific North",
         "WSCRecognized": null,
-        "Website": "https://canorcal.org"
+        "Website": "https://canorcal.org",
+        "Hotline": "+14152261300"
       },
       "geometry": {
         "type": "Polygon",
