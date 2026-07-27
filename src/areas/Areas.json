@@ -82,7 +82,9 @@
       "properties": {
         "Name": "Utah",
         "Region": "Pacific North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://cautah.org/",
+        "Hotline": "+18886492838"
       },
       "geometry": {
         "type": "Polygon",
@@ -287,7 +289,9 @@
       "properties": {
         "Name": "Washington",
         "Region": "Pacific North",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://caofwa.org/",
+        "Hotline": "+14252441150"
       },
       "geometry": {
         "type": "Polygon",
@@ -2203,7 +2207,8 @@
         "Name": "Georgia",
         "Region": "Atlantic South",
         "WSCRecognized": null,
-        "Website": "https://www.georgiaca.org"
+        "Website": "https://www.georgiaca.org",
+        "Hotline": "+14042557787"
       },
       "geometry": {
         "type": "Polygon",
@@ -2426,7 +2431,9 @@
       "properties": {
         "Name": "Tennessee",
         "Region": "Atlantic South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "http://www.tennca.com/",
+        "Hotline": "+19013709111"
       },
       "geometry": {
         "type": "Polygon",
@@ -2971,7 +2978,9 @@
       "properties": {
         "Name": "Virginia",
         "Region": "Atlantic South",
-        "WSCRecognized": null
+        "WSCRecognized": null,
+        "Website": "https://www.ca-dcmdva-area.org/",
+        "Hotline": "+13013689202"
       },
       "geometry": {
         "type": "Polygon",
@@ -3422,7 +3431,8 @@
         "Name": "New York",
         "Region": "Atlantic North",
         "WSCRecognized": null,
-        "Website": "https://canewyork.org"
+        "Website": "https://canewyork.org",
+        "Hotline": "+12122622463"
       },
       "geometry": {
         "type": "Polygon",
