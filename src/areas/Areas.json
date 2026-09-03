@@ -5962,7 +5962,7 @@
       "type": "Feature",
       "properties": {
         "Name": "Hong Kong",
-        "Region": "European",
+        "Region": "Asia-Pacific and Africa",
         "WSCRecognized": null,
         "Website": "https://cahongkong.com"
       },
@@ -6205,7 +6205,7 @@
       "type": "Feature",
       "properties": {
         "Name": "South Africa",
-        "Region": "European",
+        "Region": "Asia-Pacific and Africa",
         "WSCRecognized": null,
         "Website": "https://ca.org.za",
         "Hotline": "+27693779680"
@@ -6456,7 +6456,7 @@
       "type": "Feature",
       "properties": {
         "Name": "Thailand",
-        "Region": "European",
+        "Region": "Asia-Pacific and Africa",
         "WSCRecognized": null,
         "Website": "https://cathailand.org"
       },
@@ -10481,7 +10481,7 @@
       "type": "Feature",
       "properties": {
         "Name": "Australia",
-        "Region": "Mainland Europe",
+        "Region": "Asia-Pacific and Africa",
         "WSCRecognized": null,
         "Website": "https://www.cocaineanonymous.com.au"
       },
@@ -10544,7 +10544,7 @@
       "type": "Feature",
       "properties": {
         "Name": "Indonesia",
-        "Region": "Mainland Europe",
+        "Region": "Asia-Pacific and Africa",
         "WSCRecognized": null,
         "Website": "http://cajakarta.com",
         "Hotline": "+628119632510"
