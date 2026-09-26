@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>C.A. Area Maps — Embed Demo</title>
+
+    <!--
+      This page deliberately uses its own plain CSS (no Tailwind, no Bootstrap)
+      so you can confirm the embed does not restyle the surrounding page and
+      the surrounding page does not restyle the embed.
+
+      Run it locally:
+        npm run build:all
+        npm run preview
+        open http://localhost:4173/area-maps/embed-demo.html
+    -->
+    <style>
+      body {
+        margin: 0;
+        padding: 2rem 1.5rem 4rem;
+        font-family: Georgia, 'Times New Roman', serif;
+        line-height: 1.7;
+        color: #222;
+        background: #faf8f4;
+      }
+
+      .page {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      /* Intentionally hostile host styles — these class names collide with
+         Tailwind utilities. The embed must not clobber them, and they must
+         not leak into the map. */
+      .container {
+        border: 4px dashed #b45309;
+        padding: 1rem;
+        background: #fffdf7;
+      }
+
+      .flex {
+        display: block; /* NOT display:flex — if this changes, the embed leaked */
+        font-weight: 700;
+        color: #b45309;
+      }
+
+      button {
+        font-family: inherit;
+        background: #b45309;
+        color: #fff;
+        border: 0;
+        padding: 0.5rem 1rem;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      h1 {
+        font-size: 1.9rem;
+        margin: 0 0 0.25rem;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+        margin: 2.5rem 0 0.5rem;
+      }
+
+      code,
+      pre {
+        font-family: ui-monospace, Menlo, Consolas, monospace;
+        font-size: 0.85rem;
+      }
+
+      pre {
+        background: #1f2937;
+        color: #f9fafb;
+        padding: 1rem;
+        border-radius: 6px;
+        overflow-x: auto;
+      }
+
+      .note {
+        font-size: 0.9rem;
+        color: #555;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <h1>Embed demo</h1>
+      <p class="note">
+        A stand-in for a host site such as ca.org. Everything outside the map
+        below is this page's own markup and CSS.
+      </p>
+
+      <div class="container">
+        <div class="flex">
+          Host-page canary — this must stay bold, orange and stacked (not a flex
+          row), and this box must keep its dashed border. If either changes, the
+          embed's styles escaped their container.
+        </div>
+        <p>
+          A host &lt;button&gt; for comparison: <button>Host button</button>
+        </p>
+      </div>
+
+      <h2>1. Default embed</h2>
+      <p class="note">
+        Just the two lines an embedder has to copy. Defaults to 600px tall.
+      </p>
+
+      <pre><code>&lt;div id="ca-area-map"&gt;&lt;/div&gt;
+&lt;script src="https://cawscit.github.io/area-maps/embed.js"&gt;&lt;/script&gt;</code></pre>
+
+      <div id="ca-area-map"></div>
+
+      <h2>2. Custom height, no header, meetings preloaded</h2>
+      <p class="note">
+        Options are read from <code>data-*</code> attributes on the container
+        (or on the <code>&lt;script&gt;</code> tag, to set a default for every
+        map on the page).
+      </p>
+
+      <pre><code>&lt;div
+  id="ca-area-map-compact"
+  data-height="420px"
+  data-header="false"
+  data-meetings="auto"
+&gt;&lt;/div&gt;</code></pre>
+
+      <div
+        id="ca-area-map-compact"
+        data-height="420px"
+        data-header="false"
+        data-meetings="auto"
+      ></div>
+
+      <h2>3. Mounted from JavaScript</h2>
+      <p class="note">
+        The bundle also exposes <code>window.CAAreaMap</code> for pages that
+        build their markup dynamically.
+      </p>
+
+      <pre><code>CAAreaMap.render('#ca-area-map-manual', { height: '320px', header: false });</code></pre>
+
+      <div id="ca-area-map-manual"></div>
+
+      <p class="note">
+        Loaded last so the auto-mount for <code>#ca-area-map</code> has already
+        run, proving both paths coexist.
+      </p>
+    </div>
+
+    <!-- Auto-mounts into #ca-area-map -->
+    <script src="./embed.js"></script>
+
+    <script>
+      // The extra maps are opt-in, so mount them by hand.
+      CAAreaMap.render('#ca-area-map-compact');
+      CAAreaMap.render('#ca-area-map-manual', {
+        height: '320px',
+        header: false,
+      });
+    </script>
+  </body>
+</html>

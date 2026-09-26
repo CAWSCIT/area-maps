@@ -1,0 +1,44 @@
+/*
+ * Stylesheet for the embeddable build (src/embed.jsx).
+ *
+ * This imports the same pieces as App.css, but the build
+ * (vite.embed.config.js) rewrites every selector below to only match inside
+ * `.ca-area-map-embed`. That confines Tailwind's preflight reset, its
+ * utilities and Leaflet's stylesheet to our own container, so the embed looks
+ * the way it does on GitHub Pages without restyling the host page.
+ *
+ * The web font is also skipped on purpose — an embed should not pull a
+ * third-party font onto the host page. `.font-open-sans` falls back to the
+ * host's sans-serif when Open Sans is not already available.
+ */
+
+@import 'tailwindcss/theme.css';
+@import 'tailwindcss/preflight.css';
+@import 'tailwindcss/utilities.css';
+@import 'leaflet/dist/leaflet.css';
+@import './map-styles.css';
+
+/*
+ * Preflight is scoped to descendants of the container, so give the container
+ * itself the same baseline and stop host typography leaking into the map.
+ */
+.ca-area-map-embed {
+  box-sizing: border-box;
+  text-align: left;
+  color: #111827;
+}
+
+/*
+ * Scoping stops our styles reaching the host page, but not the reverse: a host
+ * rule whose class name happens to match a Tailwind utility we use (`.flex`,
+ * `.border`, …) still applies its *other* declarations to our markup, and
+ * inheritable ones such as `color` and `font-weight` then cascade into the
+ * map, the legend and the popups. Pin them on the two roots that everything
+ * else inherits from instead of leaving them to the host. Utilities such as
+ * `text-white` are more specific and still win where the component sets them.
+ */
+.ca-area-map-embed .leaflet-container,
+.ca-area-map-embed button {
+  color: #111827;
+  font-weight: 400;
+}

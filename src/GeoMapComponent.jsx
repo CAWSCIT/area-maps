@@ -6,12 +6,13 @@ import {
   Marker,
   Pane,
 } from 'react-leaflet';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import L from 'leaflet';
 delete L.Icon.Default.prototype._getIconUrl;
 import MarkerClusterGroup from 'react-leaflet-cluster';
 
 import LegendControl from './LegendControl';
+import MapResizeHandler from './MapResizeHandler';
 import { caMeetingIcon, clusterIcon } from './Icons';
 import caLogoWhite from '/src/assets/ca-logo-white.svg';
 
@@ -66,7 +67,22 @@ const buildMeetingRecord = (meeting) => {
 const normalizeMeetings = (payload) =>
   payload.map(buildMeetingRecord).filter(Boolean);
 
-export default function GeoMapComponent({ initialData }) {
+/**
+ * @param {object} props
+ * @param {object} props.initialData GeoJSON FeatureCollection of C.A. Areas.
+ * @param {boolean} [props.fill] Size the map to its parent instead of the
+ *   viewport. Used by the embeddable build, where the host page owns the
+ *   available height.
+ * @param {boolean} [props.showHeader] Render the C.A. branded header bar.
+ * @param {boolean} [props.autoLoadMeetings] Fetch meetings on mount instead of
+ *   waiting for the "Load all meetings" button.
+ */
+export default function GeoMapComponent({
+  initialData,
+  fill = false,
+  showHeader = true,
+  autoLoadMeetings = false,
+}) {
   const [geoJsonData] = useState(() => initialData);
   const [selected, setSelected] = useState(null);
   const [meetings, setMeetings] = useState([]);
@@ -95,6 +111,10 @@ export default function GeoMapComponent({ initialData }) {
       setLoadingMeetings(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (autoLoadMeetings) handleLoadMeetings();
+  }, [autoLoadMeetings, handleLoadMeetings]);
 
   const styleFeature = useCallback(
     (feature) => {
@@ -205,8 +225,10 @@ export default function GeoMapComponent({ initialData }) {
         mouseout: (e) => {
           // If the mouse moved to another polygon, let its mouseover handle
           // the style transition — don't reset here or we'd stomp the new highlight.
-          const movedToPolygon = e.originalEvent?.relatedTarget
-            ?.classList?.contains('leaflet-interactive');
+          const movedToPolygon =
+            e.originalEvent?.relatedTarget?.classList?.contains(
+              'leaflet-interactive'
+            );
 
           if (!movedToPolygon) {
             layer.closeTooltip();
@@ -277,37 +299,40 @@ export default function GeoMapComponent({ initialData }) {
     [clusterRef]
   );
 
+  const containerClassName = fill ? 'flex h-full w-full flex-col' : undefined;
+  const mapClassName = fill
+    ? 'min-h-0 w-full flex-1'
+    : 'h-[calc(100vh_-_6rem)] w-full';
+
   return (
-    <div>
-      <div className="flex h-24 items-center justify-between px-2.5 py-2.5 bg-[#00594f]">
-        {/* Logo */}
-        <div className="flex items-center gap-2 font-semibold text-lg text-white font-open-sans">
-          <img src={caLogoWhite} alt="C.A. Logo" className="h-24 w-auto" />
-          Area Maps
-        </div>
-        {/* Top-left controls */}
-        <div className="">
-          {!meetings.length && (
-            <button
-              onClick={handleLoadMeetings}
-              disabled={loadingMeetings}
-              className="py-1.5 px-3 border cursor-pointer bg-white border-gray-800 rounded hover:bg-gray-200 disabled:opacity-50"
-            >
-              {loadingMeetings ? 'Loading meetings…' : 'Load all meetings'}
-            </button>
-          )}
+    <div className={containerClassName}>
+      {showHeader && (
+        <div className="flex h-24 shrink-0 items-center justify-between px-2.5 py-2.5 bg-[#00594f]">
+          {/* Logo */}
+          <div className="flex items-center gap-2 font-semibold text-lg text-white font-open-sans">
+            <img src={caLogoWhite} alt="C.A. Logo" className="h-24 w-auto p-4" />
+            C.A. Area Maps
+          </div>
+          {/* Top-left controls */}
+          <div className="">
+            {!meetings.length && (
+              <button
+                onClick={handleLoadMeetings}
+                disabled={loadingMeetings}
+                className="py-1.5 px-3 border cursor-pointer bg-white border-gray-800 rounded hover:bg-gray-200 disabled:opacity-50"
+              >
+                {loadingMeetings ? 'Loading meetings…' : 'Load all meetings'}
+              </button>
+            )}
 
-          {meetingsError && (
-            <span className="text-red-500 text-sm">{meetingsError}</span>
-          )}
+            {meetingsError && (
+              <span className="text-red-500 text-sm">{meetingsError}</span>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
-      <MapContainer
-        center={[0, 0]}
-        zoom={2}
-        className="h-[calc(100vh_-_6rem)] w-full"
-      >
+      <MapContainer center={[0, 0]} zoom={2} className={mapClassName}>
         {/* Attribution */}
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -352,6 +377,9 @@ export default function GeoMapComponent({ initialData }) {
 
         {/* Legend */}
         <LegendControl />
+
+        {/* Embeds live in a container the host page can resize at any time */}
+        {fill && <MapResizeHandler />}
       </MapContainer>
 
       {/* End page container */}

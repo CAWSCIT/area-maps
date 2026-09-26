@@ -34,11 +34,20 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Builds dist/embed.js, the single-file script other sites (e.g. ca.org)
+      # drop onto a page. Must run after the main build: it writes into the
+      # same dist/ directory without clearing it.
+      - name: Build embeddable script
+        run: npm run build:embed
+
       - name: List build output
         run: ls -lhR dist
 
       - name: Check index.html
         run: test -f dist/index.html && echo "index.html exists" || (echo "index.html missing!" && exit 1)
+
+      - name: Check embed.js
+        run: test -s dist/embed.js && echo "embed.js exists" || (echo "embed.js missing!" && exit 1)
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
