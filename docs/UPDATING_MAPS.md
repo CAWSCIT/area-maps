@@ -2,9 +2,11 @@
 
 To edit the GeoJSON, we recommend using an interactive tool such as [https://geojson.io/](https://geojson.io/). (Note: C.A. is not affiliated nor do we endorse this service.)
 
+> Note: You will need a free GitHub account. Contact the WSCIT committee if you need access.
+
 To update these maps, you'll want to:
 
-1. Download the [Areas.json](src/areas/Areas.json) file (right-click and select "Save Link As..." to download).
+1. Download the [Areas.json](https://github.com/CAWSCIT/area-maps/blob/main/src/areas/Areas.json) file (right-click and select "Save Link As..." to download).
 2. Upload that file to [https://geojson.io/](https://geojson.io/) (or any other GeoJSON service) using the "Import" feature.
 3. Edit the plots, or add more as you see fit. All the shapes are selectable and can be re-shaped.
 4. Download the edits by clicking the "Export" button with the following settings:
@@ -13,8 +15,9 @@ To update these maps, you'll want to:
   * Do **Indent & Format** (if you forget this step that's OK, it will fix itself)
 5. [Edit this file](https://github.com/CAWSCIT/area-maps/edit/main/src/areas/Areas.json) by copying and pasting the new data into this file. (At this point you could ask a software engineer for help as well)
 6. Click the green "Commit changes..." button. Name the change and add details to what you added.
-7. A software engineer _should_ review this code before "accepting" it.
-8. Once the code is merged (accepted) into this repository, it will automatically recreate the website and deploy it.
+7. Open a new "pull request". This is the tool that lets peers review changes and make them accessible in the main codebase.
+8. A software engineer _should_ review this code before "accepting" it.
+9. Once the code is merged (accepted) into this repository, it will automatically recreate the website and deploy it.
 
 #### Caveats
 ##### United Kingdom
