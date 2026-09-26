@@ -1,0 +1,71 @@
+name: Format Areas.json
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/areas/Areas.json'
+      - '.prettierrc'
+      - '.github/workflows/format-areas.yml'
+  pull_request:
+    paths:
+      - 'src/areas/Areas.json'
+      - '.prettierrc'
+      - '.github/workflows/format-areas.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: format-areas-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # On pull_request the default checkout is a detached merge commit, which
+          # cannot be pushed back. Check out the PR's own branch instead (which
+          # for a fork PR lives in the contributor's repository).
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Format Areas.json with Prettier
+        run: npx prettier --write src/areas/Areas.json
+
+      - name: Commit formatted file
+        env:
+          # Pushes to a fork's branch are not possible with GITHUB_TOKEN.
+          IS_FORK: ${{ github.event.pull_request.head.repo.full_name != '' && github.event.pull_request.head.repo.full_name != github.repository }}
+        run: |
+          if git diff --quiet -- src/areas/Areas.json; then
+            echo "Areas.json is already formatted; nothing to commit."
+            exit 0
+          fi
+
+          if [ "$IS_FORK" = "true" ]; then
+            echo "::notice title=Areas.json needs formatting::This PR comes from a fork, so it cannot be formatted automatically. Run 'npx prettier --write src/areas/Areas.json' locally."
+            git --no-pager diff --stat -- src/areas/Areas.json
+            exit 0
+          fi
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/areas/Areas.json
+          git commit -m 'chore: format Areas.json with Prettier [skip ci]'
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}
