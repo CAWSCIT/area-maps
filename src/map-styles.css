@@ -51,3 +51,16 @@
 .ca-marker-inner {
   line-height: 1;
 }
+
+/*
+ * The logo SVG carries a viewBox but no width/height, so it has no intrinsic
+ * size. Left to itself it collapses to 0x0 here, because the reset's
+ * `max-width: 100%` resolves against a shrink-to-fit flex item. Size it
+ * explicitly instead. (The header logo is sized by its own utility classes.)
+ */
+.ca-marker-inner img {
+  display: block;
+  width: 34px;
+  height: 34px;
+  max-width: none;
+}
